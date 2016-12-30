@@ -1,0 +1,9 @@
+{
+  "name": "react-boilerplate",
+  "version": "0.0.1",
+  "description": "Boilerplate for new React projects",
+  "main": "server/index.js",
+  "repository": "git@github.com:socketwiz/react-boilerplate.git",
+  "author": "Ricky Nelson <rickyn@socketwiz.com>",
+  "license": "MIT"
+}
