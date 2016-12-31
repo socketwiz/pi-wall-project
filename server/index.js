@@ -14,7 +14,7 @@ const log = new (winston.Logger)({
 const server = new Hapi.Server();
 const port = process.env.PORT || 3000;
 
-server.connection({ 'port': port });
+server.connection({'port': port});
 
 let webpackConfig = require('../setup/webpack/webpack.dev.js');
 
