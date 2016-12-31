@@ -13,8 +13,7 @@ module.exports = function webpackBase(options) {
         'entry': options.entry,
 
         'output': Object.assign({
-            'path': path.resolve(process.cwd(), 'public/js'),
-            'publicPath': '/'
+            'path': path.resolve(process.cwd(), 'public/js')
         }, options.output),
 
         'module': {

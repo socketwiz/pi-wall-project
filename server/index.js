@@ -25,7 +25,11 @@ if (process.env.NODE_ENV === 'production') {
 const dev = {
     'register': WebpackDevMiddleware,
     'options': {
-        'config': webpackConfig
+        'config': webpackConfig,
+        'options': {
+            'noInfo': true,
+            'publicPath': '/js'
+        }
     }
 };
 const hot = {
@@ -59,15 +63,12 @@ server.route({
 });
 
 server.on('response', function response(request) {
-    log.info(
-        request.info.remoteAddress +
-            ': ' +
-            request.method.toUpperCase() +
-            ' ' +
-            request.url.path +
-            ' --> ' +
-            request.response.statusCode
-    );
+    const remoteAddress = request.info.remoteAddress;
+    const method = request.method.toUpperCase();
+    const path = request.url.path;
+    const statusCode = request.response.statusCode;
+
+    log.info(`${remoteAddress}: ${method} ${path} --> ${statusCode}`);
 });
 
 server.start((error) => {

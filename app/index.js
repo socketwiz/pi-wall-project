@@ -1,8 +1,15 @@
 
+import App from './modules/app';
+import {hashHistory, Route, Router} from 'react-router';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Home from './modules/index';
+import {render} from 'react-dom';
+
 import '../sass/main.scss';
 
-ReactDOM.render(<Home />, document.getElementById('app'));
+render((
+    <Router history={hashHistory}>
+        <Route path="/" component={App}>
+        </Route>
+    </Router>
+), document.getElementById('app'));
 
