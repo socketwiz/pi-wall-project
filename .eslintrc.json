@@ -8,13 +8,31 @@
         }
     },
     "rules": {
-        "max-len": [2, 120, 4],
-        "func-names": 2,
+        "array-bracket-spacing": [2, "never"],
+        "comma-dangle": ["error", "never"],
+        "comma-spacing": [2, {"before": false, "after": true}],
+        "computed-property-spacing": [2, "never"],
+        "eol-last": 2,
         "indent": [2, 4, {"SwitchCase": 1}],
+        "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
+        "func-names": 2,
+        "max-len": [2, 120, 4],
+        "object-curly-spacing": [2, "never"],
         "quotes": [2, "single"],
-        "quote-props": [2, "always"],
+        "quote-props": ["error", "consistent"],
         "semi": [2, "always"],
-        "no-console": 1
+        "semi-spacing": ["error", {"before": false, "after": true}],
+        "space-unary-ops": [1, {"words": false, "nonwords": false}],
+        "space-in-parens": 2,
+        "space-infix-ops": 2,
+        "space-before-blocks": 2,
+        "spaced-comment": [2, "always"],
+
+        "no-console": [1, {"allow": ["warn", "error"]}],
+        "no-eval": 2,
+        "no-multi-spaces": 2,
+        "no-spaced-func": 2,
+        "no-unused-vars": 2
     },
     "plugins": [
         "react"

@@ -1,8 +1,8 @@
 // Important modules this config uses
 'use strict';
 
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = require('./webpack.base')({
     'entry': {

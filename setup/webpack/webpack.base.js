@@ -4,9 +4,9 @@
 
 'use strict';
 
-var autoprefixer = require('autoprefixer');
-var path = require('path');
-var webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = function webpackBase(options) {
     return {
