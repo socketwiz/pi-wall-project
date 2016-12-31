@@ -16,8 +16,7 @@ module.exports = {
         // Some libraries don't like being run through babel.
         // If they gripe, put them here.
         noParse: [
-            /node_modules(\\|\/)sinon/,
-            /node_modules(\\|\/)acorn/
+            /node_modules(\\|\/)sinon/
         ],
         loaders: [
             {'test': /\.json$/, 'loader': 'json-loader'},

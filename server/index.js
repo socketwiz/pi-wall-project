@@ -2,6 +2,8 @@
 
 const Hapi = require('hapi');
 const Inert = require('inert');
+const IS_DEV = process.env.NODE_ENV !== 'production';
+const NGROK = (IS_DEV && process.env.ENABLE_TUNNEL) && require('ngrok');
 const WebpackDevMiddleware = require('./middleware/webpack-dev');
 const WebpackHotMiddleware = require('./middleware/webpack-hot');
 const winston = require('winston');
@@ -77,6 +79,17 @@ server.start((error) => {
         throw error;
     }
 
-    log.info(`Server running at: ${server.info.uri}`);
+    log.info(`LAN: http://localhost:${port}`);
+
+    // Connect to ngrok in dev mode
+    if (NGROK) {
+        NGROK.connect(port, (innerErr, url) => {
+            if (innerErr) {
+                return log.error(innerErr);
+            }
+
+            log.info(`Proxy: ${url}`);
+        });
+    }
 });
 
