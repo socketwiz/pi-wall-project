@@ -6,6 +6,7 @@
   "repository": "git@github.com:socketwiz/react-boilerplate.git",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config setup/webpack/webpack.prod.js --color -p --progress",
+    "generate": "plop --plopfile setup/generators/index.js",
     "lint:eslint": "eslint --ignore-path .gitignore -- .",
     "start": "cross-env NODE_ENV=development node server",
     "start:production": "yarn run build && npm run start:prod",
@@ -35,6 +36,7 @@
     "eslint-config-google": "^0.7.1",
     "eslint-plugin-react": "^6.8.0",
     "node-sass": "^4.1.1",
+    "plop": "^1.7.3",
     "postcss-loader": "^1.2.1",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
