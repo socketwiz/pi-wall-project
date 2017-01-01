@@ -1,0 +1,7 @@
+$1
+{{#if isContainer}}
+import {{properCase component}} from './containers/{{properCase component}}';
+{{else}}
+import {{properCase component}} from './components/{{properCase component}}';
+{{/if}}
+
