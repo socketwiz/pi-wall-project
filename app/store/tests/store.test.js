@@ -6,6 +6,8 @@
 
 import expect from 'expect';
 import configureStore from '../configureStore';
+import {loadTest} from '../../actions/app';
+import * as types from '../../constants';
 
 describe('configureStore', () => {
     const TEST = 'passed';
@@ -13,12 +15,17 @@ describe('configureStore', () => {
     let store;
 
     before(() => {
-        store = configureStore({'app': {'test': TEST}});
+        store = configureStore({});
     });
 
-    describe('app store', () => {
-        it('should contain an object for the app store', () => {
-            expect(store.getState().app.test).toEqual(TEST);
+    describe('actions', () => {
+        it('should create an action to add a test', () => {
+            const expectedAction = {
+                'type': types.LOAD_TEST,
+                'test': TEST
+            };
+
+            expect(store.dispatch(loadTest(TEST))).toEqual(expectedAction);
         });
     });
 });

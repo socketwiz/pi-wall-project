@@ -1,16 +1,17 @@
 
+import {assign} from 'lodash';
 import {LOAD_TEST} from '../constants';
 
 // The initial state of the App
 const initialState = {
-    'app': ''
+    'test': ''
 };
 
 function appReducer(state = initialState, action) {
     switch (action.type) {
         case LOAD_TEST:
-            return _.assign({}, state, {
-                'test': 'passed'
+            return assign({}, state, {
+                'test': state.test
             });
         default:
             return state;

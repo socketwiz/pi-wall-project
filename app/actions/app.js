@@ -1,9 +1,10 @@
 
 import {LOAD_TEST} from '../constants';
 
-export function loadTest() {
+export function loadTest(data) {
     return {
-        type: LOAD_TEST
+        'type': LOAD_TEST,
+        'test': data
     };
 }
 

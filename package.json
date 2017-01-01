@@ -36,6 +36,7 @@
     "babel-loader": "^6.2.10",
     "hapi": "^16.1.0",
     "inert": "^4.1.0",
+    "lodash": "^4.17.4",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.1",
