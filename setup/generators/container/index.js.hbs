@@ -7,9 +7,9 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
-import * as {{ properCase name}}Actions from '../../actions/{{lowerCase name}}';
+import * as {{properCase name}}Actions from '../../actions/{{dashCase name}}';
 
-export class {{ properCase name }} extends Component {
+export class {{properCase name}} extends Component {
     render() {
         return (
             <div>
@@ -26,12 +26,12 @@ function mapStateToProps(state) {
 {{/if}}
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({{ properCase name}}Actions, dispatch);
+    return bindActionCreators({{properCase name}}Actions, dispatch);
 }
 
 {{#if wantActionsAndReducer}}
-export default connect(mapStateToProps, mapDispatchToProps)({{ properCase name }});
+export default connect(mapStateToProps, mapDispatchToProps)({{properCase name }});
 {{else}}
-export default connect(null, mapDispatchToProps)({{ properCase name }});
+export default connect(null, mapDispatchToProps)({{properCase name }});
 {{/if}}
 

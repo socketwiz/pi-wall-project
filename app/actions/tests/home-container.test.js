@@ -3,12 +3,12 @@
 import {expect} from 'chai';
 import {
     defaultAction
-} from '../{{dashCase name}}';
+} from '../home-container';
 import {
     DEFAULT_ACTION
-} from '../../containers/{{properCase name}}/constants';
+} from '../../containers/HomeContainer/constants';
 
-describe('{{ properCase name }} actions', () => {
+describe('HomeContainer actions', () => {
     describe('Default Action', () => {
         it('has a type of DEFAULT_ACTION', () => {
             const expected = {

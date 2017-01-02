@@ -51,13 +51,13 @@ module.exports = {
             // Actions
             actions.push({
                 'type': 'add',
-                'path': '../../app/actions/{{lowerCase name}}.js',
+                'path': '../../app/actions/{{dashCase name}}.js',
                 'templateFile': './container/actions.js.hbs',
                 'abortOnFail': true
             });
             actions.push({
                 'type': 'add',
-                'path': '../../app/actions/tests/{{lowerCase name}}.test.js',
+                'path': '../../app/actions/tests/{{dashCase name}}.test.js',
                 'templateFile': './container/actions.test.js.hbs',
                 'abortOnFail': true
             });
@@ -65,13 +65,13 @@ module.exports = {
             // Reducer
             actions.push({
                 'type': 'add',
-                'path': '../../app/reducers/{{lowerCase name}}.js',
+                'path': '../../app/reducers/{{dashCase name}}.js',
                 'templateFile': './container/reducer.js.hbs',
                 'abortOnFail': true
             });
             actions.push({
                 'type': 'add',
-                'path': '../../app/reducers/tests/{{lowerCase name}}.test.js',
+                'path': '../../app/reducers/tests/{{dashCase name}}.test.js',
                 'templateFile': './container/reducer.test.js.hbs',
                 'abortOnFail': true
             });

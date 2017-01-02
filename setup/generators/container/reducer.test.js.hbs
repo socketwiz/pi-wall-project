@@ -1,10 +1,11 @@
+/* global describe, it */
 
-import expect from 'expect';
-import {{ camelCase name }}Reducer from '../{{lowerCase name}}';
+import {expect} from 'chai';
+import {{ camelCase name }}Reducer from '../{{dashCase name}}';
 
 describe('{{ camelCase name }}Reducer', () => {
     it('returns the initial state', () => {
-        expect({{ camelCase name }}Reducer(undefined, {})).toEqual({});
+        expect({{ camelCase name }}Reducer(undefined, {})).to.eql({});
     });
 });
 
