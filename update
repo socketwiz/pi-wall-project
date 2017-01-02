@@ -1,0 +1,10 @@
+#! /bin/sh
+
+rm -rf node_modules
+
+eval "$(docker-machine env react-starter)"
+docker-compose stop web
+docker-compose rm --force web
+docker rmi reactstarter_web
+docker-compose up -d
+

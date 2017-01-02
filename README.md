@@ -9,12 +9,24 @@ complete solution.
 PRE-REQUISITES:  
 1) node (LTS)  
 2) yarn (npm should work)  
+
+or
+
+1) docker
 ```
 $ git clone git@github.com:socketwiz/react-starter.git
 $ cd react-starter
 $ yarn install
 $ yarn start
 # navigate to http://localhost:3000/ in your browser of choice
+
+# or
+
+$ docker-machine create --driver virtualbox react-starter
+$ eval "$(docker-machine env react-starter)"
+$ docker-compose up -d
+$ docker-machine ip react-starter
+# navigate to http://&lt;ip from previous command&gt;3000/ in your browser of choice
 ```
 
 ##Server modules
@@ -51,3 +63,6 @@ Plop is used to generate new templates for containers, components, and routes.
 
 If you find a bug or would like to suggest a feature, please by all means create a pull request.
 
+##Docker
+A Dockerfile and docker-compose file are supplied for deployment.  Once its up
+and running you can see the logs with ```docker-compose logs web```.
