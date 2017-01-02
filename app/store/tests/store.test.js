@@ -4,7 +4,7 @@
  * Test store addons
  */
 
-import expect from 'expect';
+import {expect} from 'chai';
 import configureStore from '../configureStore';
 import {loadTest} from '../../actions/app';
 import * as types from '../../constants';
@@ -25,7 +25,7 @@ describe('configureStore', () => {
                 'test': TEST
             };
 
-            expect(store.dispatch(loadTest(TEST))).toEqual(expectedAction);
+            expect(store.dispatch(loadTest(TEST))).eql(expectedAction);
         });
     });
 });
