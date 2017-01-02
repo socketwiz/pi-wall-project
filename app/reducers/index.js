@@ -1,10 +1,9 @@
 
 import {combineReducers} from 'redux';
-
-import app from './app';
+import homeContainerReducer from './home-container';
 
 const ROOT_REDUCER = combineReducers({
-    app
+    homeContainerReducer
 });
 
 export default ROOT_REDUCER;
