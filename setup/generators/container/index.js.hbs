@@ -1,15 +1,13 @@
 /*
- *
- * {{properCase name }}
- *
+ * {{properCase container }}
  */
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
-import * as {{properCase name}}Actions from '../../actions/{{dashCase name}}';
+import * as {{properCase container}}Actions from '../../actions/{{dashCase container}}';
 
-export class {{properCase name}} extends Component {
+export class {{properCase container}} extends Component {
     render() {
         return (
             <div>
@@ -26,12 +24,12 @@ function mapStateToProps(state) {
 {{/if}}
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({{properCase name}}Actions, dispatch);
+    return bindActionCreators({{properCase container}}Actions, dispatch);
 }
 
 {{#if wantActionsAndReducer}}
-export default connect(mapStateToProps, mapDispatchToProps)({{properCase name }});
+export default connect(mapStateToProps, mapDispatchToProps)({{properCase container }});
 {{else}}
-export default connect(null, mapDispatchToProps)({{properCase name }});
+export default connect(null, mapDispatchToProps)({{properCase container }});
 {{/if}}
 

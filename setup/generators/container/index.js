@@ -8,7 +8,7 @@ module.exports = {
     'description': 'Add a container component',
     'prompts': [{
         'type': 'input',
-        'name': 'name',
+        'name': 'container',
         'message': 'What should it be called?',
         'default': 'Form',
         'validate': value => {
@@ -27,12 +27,12 @@ module.exports = {
     'actions': data => {
         let actions = [{
             'type': 'add',
-            'path': '../../app/containers/{{properCase name}}/index.js',
+            'path': '../../app/containers/{{properCase container}}/index.js',
             'templateFile': './container/index.js.hbs',
             'abortOnFail': true
         }, {
             'type': 'add',
-            'path': '../../app/containers/{{properCase name}}/tests/index.test.js',
+            'path': '../../app/containers/{{properCase container}}/tests/index.test.js',
             'templateFile': './container/test.js.hbs',
             'abortOnFail': true
         }];
@@ -43,7 +43,7 @@ module.exports = {
             // Constants
             actions.push({
                 'type': 'add',
-                'path': '../../app/containers/{{properCase name}}/constants.js',
+                'path': '../../app/containers/{{properCase container}}/constants.js',
                 'templateFile': './container/constants.js.hbs',
                 'abortOnFail': true
             });
@@ -51,13 +51,13 @@ module.exports = {
             // Actions
             actions.push({
                 'type': 'add',
-                'path': '../../app/actions/{{dashCase name}}.js',
+                'path': '../../app/actions/{{dashCase container}}.js',
                 'templateFile': './container/actions.js.hbs',
                 'abortOnFail': true
             });
             actions.push({
                 'type': 'add',
-                'path': '../../app/actions/tests/{{dashCase name}}.test.js',
+                'path': '../../app/actions/tests/{{dashCase container}}.test.js',
                 'templateFile': './container/actions.test.js.hbs',
                 'abortOnFail': true
             });
@@ -65,13 +65,25 @@ module.exports = {
             // Reducer
             actions.push({
                 'type': 'add',
-                'path': '../../app/reducers/{{dashCase name}}.js',
+                'path': '../../app/reducers/{{dashCase container}}.js',
                 'templateFile': './container/reducer.js.hbs',
                 'abortOnFail': true
             });
             actions.push({
+                'type': 'modify',
+                'path': '../../app/reducers/index.js',
+                'pattern': /(import {combineReducers} from 'redux';\s*)/g,
+                'templateFile': './container/reducer-import.js.hbs'
+            });
+            actions.push({
+                'type': 'modify',
+                'path': '../../app/reducers/index.js',
+                'pattern': /(homeContainerReducer,\s*)/g,
+                'templateFile': './container/reducer-combine.js.hbs'
+            });
+            actions.push({
                 'type': 'add',
-                'path': '../../app/reducers/tests/{{dashCase name}}.test.js',
+                'path': '../../app/reducers/tests/{{dashCase container}}.test.js',
                 'templateFile': './container/reducer.test.js.hbs',
                 'abortOnFail': true
             });
