@@ -26,7 +26,7 @@ $ docker-machine create --driver virtualbox react-starter
 $ eval "$(docker-machine env react-starter)"
 $ docker-compose up -d
 $ docker-machine ip react-starter
-# navigate to http://&lt;ip from previous command&gt;3000/ in your browser of choice
+# navigate to http://&lt;ip from previous command&gt;/ in your browser of choice
 ```
 
 ##Server modules
