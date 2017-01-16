@@ -27,6 +27,6 @@ module.exports = require('./webpack.base')({
         new webpack.NoErrorsPlugin()
     ],
 
-    'devtool': 'inline-source-map'
+    'devtool': 'source-map'
 });
 

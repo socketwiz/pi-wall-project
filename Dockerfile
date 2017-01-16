@@ -1,5 +1,8 @@
 FROM node:boron
 
+ARG OPEN_WEATHER_API
+ENV OPEN_WEATHER_API ${OPEN_WEATHER_API}
+
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -16,7 +19,9 @@ RUN gem install sass
 
 # Install app dependencies
 COPY . /usr/src/app
-RUN yarn install
+RUN rm -rf /usr/src/app/node_modules
+RUN cd /usr/src/app && yarn install
+RUN cd /usr/src/app && yarn run build
 
 ENV NODE_ENV="production"
 EXPOSE 3000

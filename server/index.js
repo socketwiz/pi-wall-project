@@ -18,16 +18,12 @@ const port = process.env.PORT || 3000;
 
 server.connection({'port': port});
 
-let webpackConfig = require('../setup/webpack/webpack.dev.js');
-
-if (process.env.NODE_ENV === 'production') {
-    webpackConfig = require('../setup/webpack/webpack.prod.js');
-}
+const io = require('socket.io')(server.listener);
 
 const dev = {
     'register': WebpackDevMiddleware,
     'options': {
-        'config': webpackConfig,
+        'config': require('../setup/webpack/webpack.dev.js'),
         'options': {
             'noInfo': true,
             'publicPath': '/js'
@@ -40,7 +36,7 @@ const hot = {
 
 let middleware = [Inert];
 
-if (process.env.NODE_ENV === 'development') {
+if (IS_DEV) {
     middleware.push(dev);
     middleware.push(hot);
 }
@@ -71,6 +67,15 @@ server.on('response', function response(request) {
     const statusCode = request.response.statusCode;
 
     log.info(`${remoteAddress}: ${method} ${path} --> ${statusCode}`);
+});
+
+io.on('connection', function onConnection(socket) {
+    socket.on('bus', function onBus() {
+        socket.broadcast.emit('redirect-bus');
+    });
+    socket.on('weather', function onWeather() {
+        socket.broadcast.emit('redirect-weather');
+    });
 });
 
 server.start((error) => {

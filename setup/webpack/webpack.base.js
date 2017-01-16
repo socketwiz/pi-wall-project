@@ -4,6 +4,7 @@
 
 'use strict';
 
+const _ = require('lodash');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
@@ -13,7 +14,8 @@ module.exports = function webpackBase(options) {
         'entry': options.entry,
 
         'output': Object.assign({
-            'path': path.resolve(process.cwd(), 'public/js')
+            'path': path.resolve(process.cwd(), 'public/js'),
+            'publicPath': 'js/'
         }, options.output),
 
         'module': {
@@ -27,11 +29,19 @@ module.exports = function webpackBase(options) {
                 {
                     'test': /\.js$/,
                     'exclude': /node_modules/,
-                    'loader': 'babel',
-                    'query': {'presets': ['react', 'es2015']}
+                    'loader': 'babel-loader'
                 }
             ]
         },
+
+        'sassLoader': _.assign({
+            'includePaths': [
+                path.resolve(__dirname, '../../node_modules/bootstrap-sass/assets/stylesheets'),
+                path.resolve(__dirname, '../../node_modules/weather-icons/sass')
+            ],
+
+            'precision': 8
+        }),
 
         'postcss': [autoprefixer(
             {
@@ -41,7 +51,7 @@ module.exports = function webpackBase(options) {
 
         'resolve': {
             'extensions': ['', '.js', '.jsx', '.scss'],
-            'modules': ['frontend', 'node_modules']
+            'modules': ['app', 'node_modules']
         },
 
         'plugins': options.plugins.concat([
@@ -51,7 +61,10 @@ module.exports = function webpackBase(options) {
                 'ReactDOM': 'react-dom'
             }),
             new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-            new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+            new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+            new webpack.DefinePlugin({
+                'process.env.OPEN_WEATHER_API': JSON.stringify(process.env.OPEN_WEATHER_API)
+            })
         ]),
 
         'devtool': options.devtool,

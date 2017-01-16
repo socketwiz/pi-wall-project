@@ -2,9 +2,9 @@
 
 rm -rf node_modules
 
-eval "$(docker-machine env react-starter)"
+eval "$(docker-machine env pi-wall)"
 docker-compose stop web
 docker-compose rm --force web
-docker rmi reactstarter_web
+docker rmi piwallproject_web
 docker-compose up -d
 
