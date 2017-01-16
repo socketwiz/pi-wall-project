@@ -10,22 +10,20 @@ PRE-REQUISITES:
 1) node (LTS)  
 2) yarn (npm should work)  
 
-or
-
-1) docker
 ```
-$ git clone git@github.com:socketwiz/react-starter.git
-$ cd react-starter
+$ git clone git@github.com:socketwiz/pi-wall-project.git
+$ cd pi-wall-project
 $ yarn install
 $ yarn start
 # navigate to http://localhost:3000/ in your browser of choice
 
 # or
+# Create Docker image
 
-$ docker-machine create --driver virtualbox react-starter
-$ eval "$(docker-machine env react-starter)"
+$ docker-machine create --driver virtualbox pi-wall
+$ eval "$(docker-machine env pi-wall)"
 $ docker-compose up -d
-$ docker-machine ip react-starter
+$ docker-machine ip pi-wall
 # navigate to http://&lt;ip from previous command&gt;/ in your browser of choice
 ```
 

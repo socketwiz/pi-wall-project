@@ -3,6 +3,8 @@ services:
     web:
         build:
             context: .
+            args:
+                OPEN_WEATHER_API: "${OPEN_WEATHER_API}"
         entrypoint: npm start
         ports:
             - "80:3000"
