@@ -1,7 +1,5 @@
 #! /bin/sh
 
-rm -rf node_modules
-
 eval "$(docker-machine env pi-wall)"
 docker-compose stop web
 docker-compose rm --force web

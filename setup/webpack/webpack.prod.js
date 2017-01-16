@@ -6,7 +6,7 @@ const webpack = require('webpack');
 
 module.exports = require('./webpack.base')({
     'entry': {
-        'main': path.join(process.cwd(), 'app/app')
+        'main': path.join(process.cwd(), 'app/app.js')
     },
 
     'output': {

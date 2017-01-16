@@ -1,5 +1,5 @@
 
-import Bus from './components/bus';
+import Bus from './components/Bus';
 import configureStore from './store/configureStore';
 import {hashHistory, Router, Route} from 'react-router';
 import {Provider} from 'react-redux';

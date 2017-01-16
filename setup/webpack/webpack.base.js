@@ -51,7 +51,7 @@ module.exports = function webpackBase(options) {
 
         'resolve': {
             'extensions': ['', '.js', '.jsx', '.scss'],
-            'modules': ['app', 'node_modules']
+            'modules': ['node_modules']
         },
 
         'plugins': options.plugins.concat([
