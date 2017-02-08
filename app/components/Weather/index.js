@@ -41,7 +41,9 @@ class Weather extends Component {
     getCurrentWeather(endpoint) {
         fetch(endpoint)
             .then(response => response.json().then(data => {
-                if (data.cod !== 200 && data.cod !== 0) {
+                let status = parseInt(data.cod, 10);
+
+                if (status !== 200 && status !== 0) {
                     clearTimeout(this.busTimer);
                     clearTimeout(this.nowTimer);
                     clearTimeout(this.weatherTimer);
