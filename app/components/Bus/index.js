@@ -58,6 +58,7 @@ class Bus extends Component {
             clearInterval(this.runningTime);
 
             if (this.soundAlarm) {
+                console.log('Sounding alarm!!!');
                 this.audio.play();
             }
             timer = 0;

@@ -41,13 +41,13 @@ class Weather extends Component {
     getCurrentWeather(endpoint) {
         fetch(endpoint)
             .then(response => response.json().then(data => {
-                if (data.cod !== 200) {
+                if (data.cod !== 200 && data.cod !== 0) {
                     clearTimeout(this.busTimer);
                     clearTimeout(this.nowTimer);
                     clearTimeout(this.weatherTimer);
 
                     return this.setState({
-                        'error': data.message
+                        'error': `STATUS: ${data.cod} MESSAGE: ${data.message}`
                     });
                 } else {
                     return this.setState({
