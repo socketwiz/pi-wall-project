@@ -44,10 +44,6 @@ class Weather extends Component {
                 let status = parseInt(data.cod, 10);
 
                 if (status !== 200 && status !== 0) {
-                    clearTimeout(this.busTimer);
-                    clearTimeout(this.nowTimer);
-                    clearTimeout(this.weatherTimer);
-
                     return this.setState({
                         'error': `STATUS: ${data.cod} MESSAGE: ${data.message}`
                     });
@@ -123,6 +119,7 @@ class Weather extends Component {
         let bgColorClass = 'weather-widget '; // very-warm, warm, normal, cold, very-cold
         let bgBodyBackground = 'normal';
         let weatherClass = 'wi wi-owm-' + id;
+        let errorPartial;
 
         // Set the background colour based on the temperature
         if (temp >= 86) {
@@ -168,7 +165,14 @@ class Weather extends Component {
             </div>;
         });
 
+        if (error) {
+            errorPartial = <div className="error">
+                <h1>{error}</h1>
+            </div>;
+        }
+
         let weatherPartial = <div className="container-fluid weather-container">
+            {errorPartial}
             <div className="row text-center">
                 <div className="col-xs-12 time">{now}</div>
             </div>
@@ -199,14 +203,6 @@ class Weather extends Component {
                 </div>
             </div>
         </div>;
-
-        if (error) {
-            document.querySelector('body').className = 'very-warm';
-
-            weatherPartial = <div className="error">
-                <h1>{error}</h1>
-            </div>;
-        }
 
         return (
             <div>{weatherPartial}</div>
