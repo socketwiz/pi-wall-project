@@ -49,6 +49,7 @@ class Weather extends Component {
                     });
                 } else {
                     return this.setState({
+                        'error': '',
                         'temp': data.main.temp,
                         'humidity': data.main.humidity,
                         'weather': data.weather,
