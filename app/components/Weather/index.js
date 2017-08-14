@@ -6,6 +6,7 @@ import {MINUTE, SECOND} from '../../constants';
 import moment from 'moment';
 import React, {Component} from 'react';
 import client from 'socket.io-client';
+import Schedule from '../../../schedule.json';
 
 class Weather extends Component {
     constructor(props) {
@@ -24,10 +25,17 @@ class Weather extends Component {
     }
 
     switchToBus() {
-        let busTime = moment('07:10:00', 'HH:mm:ss');
+        let nextPickup = Schedule.pickups.reduce((a, b) => {
+            const momentA = moment(a, 'HH:mm:ss');
+            const momentB = moment(b, 'HH:mm:ss');
+
+            return (momentA.isAfter(now) && momentA.isBefore(momentB)) ? momentA : momentB;
+        });
         let now = moment();
 
-        if (busTime.diff(now, 'minutes') === 0) {
+        nextPickup.subtract(10, 'minutes');
+
+        if (nextPickup.diff(now, 'minutes') === 0) {
             location.href = '/#/bus';
         }
     }
