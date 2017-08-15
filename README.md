@@ -1,5 +1,5 @@
 
-# Startup uses Systemd:  
+# Startup uses Systemd
 - systemctl start pm2
 - systemctl stop pm2
 - systemctl restart pm2
