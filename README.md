@@ -1,18 +1,9 @@
 
-~/.config/autostart/cal.desktop
-```
-[Desktop Entry]
-Type=Application
-Name=AutoChromium
-Exec=chromium-browser --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk http://localhost/
-StartupNotify=false
-
-Startup uses Systemd:
-systemctl start pm2
-systemctl stop pm2
-systemctl restart pm2
-systemctl status pm2
-```
+# Startup uses Systemd:  
+- systemctl start pm2
+- systemctl stop pm2
+- systemctl restart pm2
+- systemctl status pm2
 
 /etc/systemd/system/pm2.service
 ```
@@ -39,3 +30,14 @@ ExecStop=/usr/local/share/.config/yarn/global/node_modules/pm2/bin/pm2 kill
 [Install]
 WantedBy=multi-user.target
 ```
+
+# Automatically launch the browser in kiosk mode
+~/.config/autostart/cal.desktop
+```
+[Desktop Entry]
+Type=Application
+Name=AutoChromium
+Exec=chromium-browser --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk http://localhost/
+StartupNotify=false
+```
+
