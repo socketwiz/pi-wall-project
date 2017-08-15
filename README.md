@@ -1,6 +1,6 @@
 
 ~/.config/autostart/cal.desktop
-
+```
 [Desktop Entry]
 Type=Application
 Name=AutoChromium
@@ -12,9 +12,10 @@ systemctl start pm2
 systemctl stop pm2
 systemctl restart pm2
 systemctl status pm2
+```
 
 /etc/systemd/system/pm2.service
-
+```
 [Unit]
 Description=PM2 process manager
 Documentation=https://pm2.keymetrics.io/
@@ -37,3 +38,4 @@ ExecStop=/usr/local/share/.config/yarn/global/node_modules/pm2/bin/pm2 kill
 
 [Install]
 WantedBy=multi-user.target
+```
