@@ -1,66 +1,39 @@
-This project is based heavily on https://github.com/mxstbr/react-boilerplate.
-I built it from the gound up using my own opinions on what libraries to use but
-consulted the react-boilerplate projects on how to create the generators and
-various other areas.  This project was created as a learning tool and to suite
-my own needs. I expect most people might prefer react-boilerplate as a more
-complete solution.
 
-###Install
-PRE-REQUISITES:  
-1) node (LTS)  
-2) yarn (npm should work)  
+~/.config/autostart/cal.desktop
 
-```
-$ git clone git@github.com:socketwiz/pi-wall-project.git
-$ cd pi-wall-project
-$ yarn install
-$ yarn start
-# navigate to http://localhost:3000/ in your browser of choice
+[Desktop Entry]
+Type=Application
+Name=AutoChromium
+Exec=chromium-browser --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk http://localhost/
+StartupNotify=false
 
-# or
-# Create Docker image
+Startup uses Systemd:
+systemctl start pm2
+systemctl stop pm2
+systemctl restart pm2
+systemctl status pm2
 
-$ docker-machine create --driver virtualbox pi-wall
-$ eval "$(docker-machine env pi-wall)"
-$ docker-compose up -d
-$ docker-machine ip pi-wall
-# navigate to http://&lt;ip from previous command&gt;/ in your browser of choice
-```
+/etc/systemd/system/pm2.service
 
-##Server modules
-* Hapi 
-* Inert
-* Ngrok
-* Webpack-dev-middleware
-* Webpack-hot-middleware
-* Winston
+[Unit]
+Description=PM2 process manager
+Documentation=https://pm2.keymetrics.io/
+After=network.target
 
-##Frontend modules
-* Autoprefixer
-* Babel
-* Lodash
-* React
-* React-router
-* Redux
-* Redux-logger
-* Redux-thunk
-* Sass
-* Webpack
+[Service]
+User=root
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+TimeoutStartSec=8
+Environment=PATH=/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+Environment=PM2_HOME=/root/.pm2
+Restart=always
+RestartSec=8
 
-##Testing modules
-* Chai
-* Cheerio
-* Enzyme
-* Eslint
-* Istanbul
-* Karma
-* Mocha
+ExecStart=/usr/local/share/.config/yarn/global/node_modules/pm2/bin/pm2 resurrect --no-daemon
+ExecReload=/usr/local/share/.config/yarn/global/node_modules/pm2/bin/pm2 reload all
+ExecStop=/usr/local/share/.config/yarn/global/node_modules/pm2/bin/pm2 kill
 
-##REPL
-Plop is used to generate new templates for containers, components, and routes.  
-
-If you find a bug or would like to suggest a feature, please by all means create a pull request.
-
-##Docker
-A Dockerfile and docker-compose file are supplied for deployment.  Once its up
-and running you can see the logs with ```docker-compose logs web```.
+[Install]
+WantedBy=multi-user.target
