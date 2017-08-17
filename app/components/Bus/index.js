@@ -36,20 +36,22 @@ class Bus extends Component {
             'secondsLeft': secondsLeft,
             'minutes': 0,
             'running': true,
-            'seconds': 0
+            'seconds': 0,
+            'totalTime': parseInt(secondsLeft / 60, 10)
         };
     }
 
     switchToWeather() {
-        let nextPickup = Schedule.pickups.reduce((a, b) => {
+        const {totalTime} = this.state;
+        const nextPickup = Schedule.pickups.reduce((a, b) => {
             const momentA = moment(a, 'HH:mm:ss');
             const momentB = moment(b, 'HH:mm:ss');
 
             return (momentA.isAfter(now) && momentA.isBefore(momentB)) ? momentA : momentB;
         });
-        let now = moment();
+        const now = moment();
 
-        nextPickup.add(1, 'minutes');
+        nextPickup.add(totalTime + 1, 'minutes');
 
         if (nextPickup.diff(now, 'minutes') === 0) {
             location.href = '/';
