@@ -96,16 +96,25 @@ class Bus extends Component {
         const DAY = moment().day();
         const IS_WEEKEND = (DAY === 6) || (DAY === 0);
         const HOLIDAYS = Schedule.holidays;
-        const HOLIDAY_BEGIN = new Date(HOLIDAYS[0].begin[0], HOLIDAYS[0].begin[1], HOLIDAYS[0].begin[2]);
-        const HOLIDAY_END = new Date(HOLIDAYS[0].end[0], HOLIDAYS[0].end[1], HOLIDAYS[0].end[2]);
         const TODAY = new Date();
-        const RANGE = extendMoment(moment).range(HOLIDAY_BEGIN, HOLIDAY_END);
 
         this.weatherTimer = setInterval(this.switchToWeather.bind(this), 1 * MINUTE);
 
-        if (IS_WEEKEND || RANGE.contains(TODAY)) {
-            this.setState({'dayOff': true});
-        } else {
+        let dayOff = false;
+
+        for (let i = 0; i < HOLIDAYS.length; i++) {
+            const HOLIDAY_BEGIN = new Date(HOLIDAYS[i].begin[0], HOLIDAYS[i].begin[1] - 1, HOLIDAYS[i].begin[2]);
+            const HOLIDAY_END = new Date(HOLIDAYS[i].end[0], HOLIDAYS[i].end[1] - 1, HOLIDAYS[i].end[2]);
+            const RANGE = extendMoment(moment).range(HOLIDAY_BEGIN, HOLIDAY_END);
+
+            if (IS_WEEKEND || RANGE.contains(TODAY)) {
+                dayOff = true;
+                this.setState({'dayOff': true});
+                break;
+            }
+        }
+
+        if (dayOff === false) {
             this.setState({'dayOff': false});
             this.runningTime = setInterval(this.countdown.bind(this), 1 * SECOND);
         }
