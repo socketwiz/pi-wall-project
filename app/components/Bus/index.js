@@ -5,7 +5,7 @@
 import client from 'socket.io-client';
 import {MINUTE, SECOND} from '../../constants';
 import moment from 'moment';
-import MomentRange from 'moment-range';
+import {extendMoment} from 'moment-range';
 import React, {Component} from 'react';
 import Schedule from '../../../schedule.json';
 
@@ -99,7 +99,7 @@ class Bus extends Component {
         const HOLIDAY_BEGIN = new Date(HOLIDAYS[0].begin[0], HOLIDAYS[0].begin[1], HOLIDAYS[0].begin[2]);
         const HOLIDAY_END = new Date(HOLIDAYS[0].end[0], HOLIDAYS[0].end[1], HOLIDAYS[0].end[2]);
         const TODAY = new Date();
-        const RANGE = moment().range(HOLIDAY_BEGIN, HOLIDAY_END);
+        const RANGE = extendMoment(moment).range(HOLIDAY_BEGIN, HOLIDAY_END);
 
         this.weatherTimer = setInterval(this.switchToWeather.bind(this), 1 * MINUTE);
 
