@@ -1,5 +1,5 @@
 /**
- * Weather
+ * Weather application
  */
 
 import {MINUTE, SECOND} from '../../constants';
@@ -9,6 +9,11 @@ import client from 'socket.io-client';
 import Schedule from '../../../schedule.json';
 
 class Weather extends Component {
+    /**
+     * Class constructor
+     *
+     * @param {Object} props - React element properties
+     */
     constructor(props) {
         super(props);
 
@@ -24,6 +29,9 @@ class Weather extends Component {
         };
     }
 
+    /**
+     * Navigate to the bus app
+     */
     switchToBus() {
         let nextPickup = Schedule.pickups.reduce((a, b) => {
             const momentA = moment(a, 'HH:mm:ss');
@@ -40,12 +48,18 @@ class Weather extends Component {
         }
     }
 
+    /**
+     * Get the current time and date and set the "now" state variable
+     */
     getCurrentTime() {
         let now = moment().format('dddd, MMMM Do, h:mm:ss A');
 
         this.setState({'now': now});
     }
 
+    /**
+     * Get the weather from an API and update the state variables
+     */
     getCurrentWeather(endpoint) {
         fetch(endpoint)
             .then(response => response.json().then(data => {
@@ -67,6 +81,9 @@ class Weather extends Component {
             }));
     }
 
+    /**
+     * React lifecycle method, invoked immediately after a component is mounted
+     */
     componentDidMount() {
         const socket = client(`http://${location.host}`);
 
@@ -75,6 +92,9 @@ class Weather extends Component {
         });
     }
 
+    /**
+     * React lifecycle method, invoked immediatley before a component is mounted
+     */
     componentWillMount() {
         const API_SERVER = 'http://api.openweathermap.org';
         const API_WEATHER = '/data/2.5/weather';
@@ -106,12 +126,20 @@ class Weather extends Component {
             }));
     }
 
+    /**
+     * React component lifecycle method, invoked immediately before a component is unmounted
+     */
     componentWillUnmount() {
         clearTimeout(this.busTimer);
         clearTimeout(this.nowTimer);
         clearTimeout(this.weatherTimer);
     }
 
+    /**
+     * When called, it should examine this.props and this.state and return a single React element.
+     *
+     * @returns {Object} - Single React element
+     */
     render() {
         const {
             city,

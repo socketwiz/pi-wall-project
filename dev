@@ -2,20 +2,17 @@
 tmux has-session -t pi
 if [ $? != 0 ]
 then
-    tmux new-session -s pi -n Code -d
+    tmux new-session -s pi -n Server -d
 
     # create two more windows
-    tmux new-window -t pi:1 -n Server
+    tmux new-window -t pi:1 -n Test
     tmux new-window -t pi:2 -n Zsh
 
-    # split the first window for code / test
-    tmux split-window -h -p 50 -t pi:0.0
+    # run the server in the first window
+    tmux send-keys -t pi:0.0 'cd ~/dev/pi-wall-project && OPEN_WEATHER_API=ecad9ebe1f6333daf507595db7f0d025 yarn start' C-m
 
-    # run vim in the first pane, test in the second
-    tmux send-keys -t pi:0.0 'cd ~/dev/pi-wall-project && yarn run test:watch' C-m
-
-    # run the server in the second window
-    tmux send-keys -t pi:1.0 'cd ~/dev/pi-wall-project && OPEN_WEATHER_API=ecad9ebe1f6333daf507595db7f0d025 yarn start' C-m
+    # run test in the second window
+    tmux send-keys -t pi:1.0 'cd ~/dev/pi-wall-project && yarn run test:watch' C-m
 
     # just get to the proper path in the last window
     tmux send-keys -t pi:2.0 'cd ~/dev/pi-wall-project' C-m

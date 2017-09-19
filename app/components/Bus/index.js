@@ -1,5 +1,5 @@
 /**
- * Bus
+ * Bus application
  */
 
 import client from 'socket.io-client';
@@ -10,6 +10,11 @@ import React, {Component} from 'react';
 import Schedule from '../../../schedule.json';
 
 class Bus extends Component {
+    /**
+     * Class constructor
+     *
+     * @param {Object} props - React element properties
+     */
     constructor(props) {
         super(props);
 
@@ -41,8 +46,10 @@ class Bus extends Component {
         };
     }
 
+    /**
+     * Navigate to the weather app
+     */
     switchToWeather() {
-        const {totalTime} = this.state;
         const nextPickup = Schedule.pickups.reduce((a, b) => {
             const momentA = moment(a, 'HH:mm:ss');
             const momentB = moment(b, 'HH:mm:ss');
@@ -51,13 +58,20 @@ class Bus extends Component {
         });
         const now = moment();
 
-        nextPickup.add(totalTime + 1, 'minutes');
+        if (nextPickup.diff(now, 'minutes') > 10) {
+            // there is another pickup, but its a ways out, switch back to weather
+            location.href = '/';
+        }
 
-        if (nextPickup.diff(now, 'minutes') === 0) {
+        if (nextPickup.diff(now, 'minutes') < 0) {
+            // there are no more pickups today, switch back to weather
             location.href = '/';
         }
     }
 
+    /**
+     * Update the countdown timer, and sound an alarm when the timer hits 0:00
+     */
     countdown() {
         let minutes = 0;
         let running = true;
@@ -72,7 +86,7 @@ class Bus extends Component {
             clearInterval(this.runningTime);
 
             if (this.soundAlarm) {
-                console.log('Sounding alarm!!!');
+                console.log('Sounding alarm!!!'); // eslint-disable-line no-console
                 this.audio.play();
             }
             timer = 0;
@@ -86,6 +100,9 @@ class Bus extends Component {
         });
     }
 
+    /**
+     * React lifecycle method, invoked immediately after a component is mounted
+     */
     componentDidMount() {
         const socket = client(`http://${location.host}`);
 
@@ -94,6 +111,9 @@ class Bus extends Component {
         });
     }
 
+    /**
+     * React lifecycle method, invoked immediatley before a component is mounted
+     */
     componentWillMount() {
         const DAY = moment().day();
         const IS_WEEKEND = (DAY === 6) || (DAY === 0);
@@ -122,11 +142,19 @@ class Bus extends Component {
         }
     }
 
+    /**
+     * React component lifecycle method, invoked immediately before a component is unmounted
+     */
     componentWillUnmount() {
         clearInterval(this.weatherTimer);
         clearInterval(this.runningTime);
     }
 
+    /**
+     * When called, it should examine this.props and this.state and return a single React element.
+     *
+     * @returns {Object} - Single React element
+     */
     render() {
         const {
             dayOff,

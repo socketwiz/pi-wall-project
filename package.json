@@ -10,15 +10,16 @@
     "generate": "plop --plopfile setup/generators/index.js",
     "lint": "yarn run lint:js",
     "lint:eslint": "eslint --ignore-path .gitignore",
-    "lint:js": "yarn run lint:eslint -- . ",
+    "lint:js": "yarn run lint:eslint . ",
     "start": "yarn run build:clean && cross-env NODE_ENV=development node server",
+    "start:debug": "yarn run build:clean && cross-env NODE_ENV=development node --inspect server",
     "start:production": "yarn run build && yarn run start:prod",
     "start:prod": "cross-env sudo pm2 start ecosystem.config.js --env production",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "pretest": "yarn run test:clean && yarn run lint",
     "test": "cross-env NODE_ENV=test karma start setup/testing/karma.conf.js --single-run",
     "test:clean": "rimraf ./coverage",
-    "test:watch": "yarn run test -- --auto-watch --no-single-run"
+    "test:watch": "yarn run test --auto-watch --no-single-run"
   },
   "babel": {
     "presets": [
