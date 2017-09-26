@@ -9,7 +9,7 @@
         "lib": [ "dom", "es2017" ]
     },
     "include": [
-        "app/**/*"
+        "src/**/*"
     ],
     "exclude": [
         "node_modules"
