@@ -4,10 +4,10 @@
 
 import alarmSound from './sounds/school-bell.wav';
 import busImage from './images/bus.png';
-import client from 'socket.io-client';
+import {extendMoment} from 'moment-range';
 import {MINUTE, SECOND} from '../../constants';
 import moment from 'moment';
-import {extendMoment} from 'moment-range';
+import {pushNavigation} from '../../base';
 import React, {Component} from 'react';
 import Schedule from '../../schedule.json';
 
@@ -106,11 +106,7 @@ class Bus extends Component {
      * React lifecycle method, invoked immediately after a component is mounted
      */
     componentDidMount() {
-        const socket = client(`http://${window.location.host}`);
-
-        socket.on('redirect-weather', function redirectWeather() {
-            window.location.href = '/';
-        });
+        pushNavigation();
     }
 
     /**

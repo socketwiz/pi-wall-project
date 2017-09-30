@@ -1,13 +1,15 @@
+
 /**
  * Weather application
  */
 
-import 'whatwg-fetch';
+import client from 'socket.io-client';
 import {MINUTE, SECOND} from '../../constants';
 import moment from 'moment';
+import {pushNavigation, switchToBus} from '../../base';
 import React, {Component} from 'react';
-import client from 'socket.io-client';
-import Schedule from '../../schedule.json';
+import './weather.css';
+import 'whatwg-fetch';
 
 class Weather extends Component {
     /**
@@ -28,25 +30,6 @@ class Weather extends Component {
             'weather': [],
             'wind': 0
         };
-    }
-
-    /**
-     * Navigate to the bus app
-     */
-    switchToBus() {
-        let nextPickup = Schedule.pickups.reduce((a, b) => {
-            const momentA = moment(a, 'HH:mm:ss');
-            const momentB = moment(b, 'HH:mm:ss');
-
-            return (momentA.isAfter(now) && momentA.isBefore(momentB)) ? momentA : momentB;
-        });
-        let now = moment();
-
-        nextPickup.subtract(10, 'minutes');
-
-        if (nextPickup.diff(now, 'minutes') === 0) {
-            window.location.href = '/bus';
-        }
     }
 
     /**
@@ -86,11 +69,7 @@ class Weather extends Component {
      * React lifecycle method, invoked immediately after a component is mounted
      */
     componentDidMount() {
-        const socket = client(`http://${window.location.host}`);
-
-        socket.on('redirect-bus', function redirectBus() {
-            window.location.href = '/bus';
-        });
+        pushNavigation();
     }
 
     /**
@@ -105,7 +84,7 @@ class Weather extends Component {
         let weatherEndpoint = `${API_SERVER}${API_WEATHER}${PARAMS}`;
         let forecastEndpoint = `${API_SERVER}${API_FORECAST}${PARAMS}`;
 
-        this.busTimer = setInterval(this.switchToBus.bind(this), 1 * MINUTE);
+        this.busTimer = setInterval(switchToBus, 1 * MINUTE);
         this.nowTimer = setInterval(this.getCurrentTime.bind(this), 1 * SECOND);
         this.weatherTimer = setInterval(
             this.getCurrentWeather.bind(this),

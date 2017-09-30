@@ -5,6 +5,7 @@ import './index.css';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Bus from './components/bus';
+import Calendar from './components/calendar';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import React from 'react';
@@ -18,8 +19,9 @@ ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={Weather} />
                 <Route exact path="/bus" component={Bus} />
+                <Route exact path="/calendar" component={Calendar} />
+                <Route exact path="/" component={Weather} />
             </Switch>
         </BrowserRouter>
     </Provider>,
