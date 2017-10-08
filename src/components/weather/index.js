@@ -3,13 +3,14 @@
  * Weather application
  */
 
+import classNames from '../class-names';
 import client from 'socket.io-client';
 import {MINUTE, SECOND} from '../../constants';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import {pushNavigation, switchToBus} from '../../base';
 import React, {Component} from 'react';
 import './weather.css';
-import 'whatwg-fetch';
 
 class Weather extends Component {
     /**
@@ -21,14 +22,7 @@ class Weather extends Component {
         super(props);
 
         this.state = {
-            'city': '',
-            'error': '',
-            'forecast': [],
-            'now': '',
-            'temp': 0,
-            'humidity': 0,
-            'weather': [],
-            'wind': 0
+            'now': ''
         };
     }
 
@@ -42,30 +36,6 @@ class Weather extends Component {
     }
 
     /**
-     * Get the weather from an API and update the state variables
-     */
-    getCurrentWeather(endpoint) {
-        fetch(endpoint)
-            .then(response => response.json().then(data => {
-                let status = parseInt(data.cod, 10);
-
-                if (status !== 200 && status !== 0) {
-                    return this.setState({
-                        'error': `STATUS: ${data.cod} MESSAGE: ${data.message}`
-                    });
-                } else {
-                    return this.setState({
-                        'error': '',
-                        'temp': data.main.temp,
-                        'humidity': data.main.humidity,
-                        'weather': data.weather,
-                        'wind': data.wind.speed
-                    });
-                }
-            }));
-    }
-
-    /**
      * React lifecycle method, invoked immediately after a component is mounted
      */
     componentDidMount() {
@@ -76,39 +46,13 @@ class Weather extends Component {
      * React lifecycle method, invoked immediatley before a component is mounted
      */
     componentWillMount() {
-        const API_SERVER = 'http://api.openweathermap.org';
-        const API_WEATHER = '/data/2.5/weather';
-        const API_FORECAST = '/data/2.5/forecast';
-        const PARAMS = `?units=imperial&zip=22603&appid=${process.env.REACT_APP_OPEN_WEATHER_API}`;
+        const {getCurrentWeather} = this.props;
 
-        let weatherEndpoint = `${API_SERVER}${API_WEATHER}${PARAMS}`;
-        let forecastEndpoint = `${API_SERVER}${API_FORECAST}${PARAMS}`;
+        getCurrentWeather();
 
         this.busTimer = setInterval(switchToBus, 1 * MINUTE);
         this.nowTimer = setInterval(this.getCurrentTime.bind(this), 1 * SECOND);
-        this.weatherTimer = setInterval(
-            this.getCurrentWeather.bind(this),
-            5 * MINUTE,
-            weatherEndpoint
-        );
-
-        // Call it once now, don't wait the 5 minutes
-        let getWeather = this.getCurrentWeather.bind(this);
-
-        getWeather(weatherEndpoint);
-
-        fetch(forecastEndpoint)
-            .then(response => response.json().then(data => {
-                if (data.cod === 401) {
-                    return;
-                }
-
-                return this.setState({
-                    'city': data.city.name,
-                    'forecast': data.list
-                });
-            }));
-
+        this.weatherTimer = setInterval(getCurrentWeather, 5 * MINUTE);
     }
 
     /**
@@ -135,34 +79,34 @@ class Weather extends Component {
             error,
             humidity,
             forecast,
-            now,
             temp,
             weather,
             wind
-        } = this.state;
+        } = this.props;
+        const {now} = this.state;
 
         let id = weather.length ? weather[0].id : '';
-        let bgColorClass = 'weather-widget '; // very-warm, warm, normal, cold, very-cold
-        let bgBodyBackground = 'normal';
+        let bgColorClass = classNames('weather-widget');
+        let bgBodyBackground = 'normal'; // very-warm, warm, normal, cold, very-cold
         let weatherClass = 'wi wi-owm-' + id;
         let errorPartial;
 
         // Set the background colour based on the temperature
         if (temp >= 86) {
             bgBodyBackground = 'very-warm';
-            bgColorClass += 'very-warm';
+            bgColorClass.add('very-warm');
         } else if (temp > 68 && temp < 86) {
             bgBodyBackground = 'warm';
-            bgColorClass += 'warm';
+            bgColorClass.add('warm');
         } else if (temp > 50 && temp < 68) {
             bgBodyBackground = 'normal';
-            bgColorClass += 'normal';
+            bgColorClass.add('normal');
         } else if (temp > 32 && temp < 50) {
             bgBodyBackground = 'cold';
-            bgColorClass += 'cold';
+            bgColorClass.add('cold');
         } else if (temp <= 32) {
             bgBodyBackground = 'very-cold';
-            bgColorClass += 'very-cold';
+            bgColorClass.add('very-cold');
         }
 
         document.querySelector('body').className = bgBodyBackground;
@@ -204,7 +148,7 @@ class Weather extends Component {
             </div>
             <div className="row">
                 <div className="col-xs-6">
-                    <div className={bgColorClass}>
+                    <div className={bgColorClass.get()}>
                         <h1 className="city">{city}</h1>
                         <div className="weather">
                             <i className={weatherClass}></i>
@@ -235,6 +179,17 @@ class Weather extends Component {
         );
     }
 }
+
+Weather.propTypes = {
+    'getCurrentWeather': PropTypes.func.isRequired,
+    'city': PropTypes.string,
+    'error': PropTypes.string,
+    'humidity': PropTypes.number,
+    'forecast': PropTypes.array,
+    'temp': PropTypes.number,
+    'weather': PropTypes.array,
+    'wind': PropTypes.number
+};
 
 export default Weather;
 

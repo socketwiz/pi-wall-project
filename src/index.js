@@ -5,7 +5,7 @@ import './index.css';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Bus from './components/bus';
-import Calendar from './components/calendar';
+import Calendar from './containers/calendar';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import React from 'react';

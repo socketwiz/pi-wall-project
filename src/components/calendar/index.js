@@ -3,28 +3,34 @@
  * Calendar application
  */
 
-import {pushNavigation} from '../../base';
 import './calendar.css';
+import {MINUTE} from '../../constants';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+import {pushNavigation, switchToBus} from '../../base';
 import React, {Component} from 'react';
 
 class Calendar extends Component {
     /**
-     * Class constructor
-     *
-     * @param {Object} props - React element properties
-     */
-    constructor(props) {
-        super(props);
-
-        this.state = {
-        };
-    }
-
-    /**
      * React lifecycle method, invoked immediately after a component is mounted
      */
     componentDidMount() {
+        const {getCalendar} = this.props;
+
         pushNavigation();
+
+        if (typeof getCalendar === 'function') {
+            getCalendar();
+        }
+
+        this.busTimer = setInterval(switchToBus, 1 * MINUTE);
+    }
+
+    /**
+     * React component lifecycle method, invoked immediately before a component is unmounted
+     */
+    componentWillUnmount() {
+        clearTimeout(this.busTimer);
     }
 
     /**
@@ -33,10 +39,13 @@ class Calendar extends Component {
      * @returns {Object} - Single React element
      */
     render() {
+        let day = moment().format('DD');
+        let now = moment().format('dddd, MMMM Do, YYYY');
+
         return (
             <div className="container">
-                <h1 className="day">26</h1>
-                <div className="date">Tuesday, September 26, 2017</div>
+                <h1 className="day">{day}</h1>
+                <div className="date">{now}</div>
                 <div className="divider"></div>
 
                 <div className="task">
@@ -60,5 +69,9 @@ class Calendar extends Component {
         );
     }
 }
+
+Calendar.propTypes = {
+    'getCalendar': PropTypes.func.isRequired
+};
 
 export default Calendar;

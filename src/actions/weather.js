@@ -4,13 +4,29 @@
  *
  */
 
-import {
-    DEFAULT_ACTION
-} from '../containers/weather/constants';
+export const SET_WEATHER = 'SET_WEATHER';
+export const SET_FORECAST = 'SET_FORECAST';
 
-export function defaultAction() {
+/**
+ * Set the forecast data in the redux store
+ *
+ * @param {Object} data - data to store
+ */
+export function setForecast(data) {
     return {
-        type: DEFAULT_ACTION
+        'type': SET_FORECAST,
+        'data': data
     };
 }
 
+/**
+ * Set the weather data in the redux store
+ *
+ * @param {Object} data - data to store
+ */
+export function setWeather(data) {
+    return {
+        'type': SET_WEATHER,
+        'data': data
+    };
+}

@@ -2,28 +2,71 @@
  * WeatherContainer
  */
 
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import React, {Component} from 'react';
+import {setForecast, setWeather} from '../../actions/weather';
 import Weather from '../../components/weather';
-import * as WeatherActions from '../../actions/weather';
-
-export class WeatherContainer extends Component {
-    render() {
-        return (
-            <Weather />
-        );
-    }
-}
+import 'whatwg-fetch';
+import {withRouter} from 'react-router';
 
 function mapStateToProps(state) {
     return {
+        'city': state.weatherReducer.city,
+        'error': state.weatherReducer.error,
+        'forecast': state.weatherReducer.forecast,
+        'humidity': state.weatherReducer.humidity,
+        'temp': state.weatherReducer.temp,
+        'weather': state.weatherReducer.weather,
+        'wind': state.weatherReducer.wind
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(WeatherActions, dispatch);
+    return {
+        'getCurrentWeather': () => {
+            const API_SERVER = 'http://api.openweathermap.org';
+            const API_WEATHER = '/data/2.5/weather';
+            const API_FORECAST = '/data/2.5/forecast';
+            const PARAMS = `?units=imperial&zip=22603&appid=${process.env.REACT_APP_OPEN_WEATHER_API}`;
+            const weatherEndpoint = `${API_SERVER}${API_WEATHER}${PARAMS}`;
+            const forecastEndpoint = `${API_SERVER}${API_FORECAST}${PARAMS}`;
+
+            fetch(weatherEndpoint)
+                .then(response => response.json().then(data => {
+                    const status = parseInt(data.cod, 10);
+
+                    if (status !== 200 && status !== 0) {
+                        dispatch(setWeather({
+                            'error': `STATUS: ${data.cod} MESSAGE: ${data.message}`
+                        }));
+                    } else {
+                        dispatch(setWeather({
+                            'error': '',
+                            'temp': data.main.temp,
+                            'humidity': data.main.humidity,
+                            'weather': data.weather,
+                            'wind': data.wind.speed
+                        }));
+                    }
+                }));
+
+            fetch(forecastEndpoint)
+                .then(response => response.json().then(data => {
+                    if (data.cod === 401) {
+                        return;
+                    }
+
+                    dispatch(setForecast({
+                        'city': data.city.name,
+                        'forecast': data.list
+                    }));
+                }));
+        }
+    };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WeatherContainer);
+const WeatherApp = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Weather);
 
+export default withRouter(WeatherApp);
