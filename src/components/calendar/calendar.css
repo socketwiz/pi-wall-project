@@ -15,6 +15,19 @@
     border: 1px solid rgb(240, 240, 240);
 }
 
+.heading {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.line {
+    display: block;
+}
+
+.notes {
+    margin-top: 15px;
+}
+
 .task {
     border-left: 5px solid rgb(255, 204, 0);
     border-bottom: 1px solid rgb(240, 240, 240);
@@ -24,13 +37,4 @@
 
 .task-time {
     padding-right: 5px;
-}
-
-.heading {
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.notes {
-    margin-top: 15px;
 }

@@ -4,16 +4,16 @@
  *
  */
 
-export const SET_CALENDAR = 'SET_CALENDAR';
+export const SET_EVENTS = 'SET_EVENTS';
 
 /**
- * Set the calendar data in the redux store
+ * Set the event data in the redux store
  *
- * @param {Object} data - data to store
+ * @param {Object} event - data to store
  */
-export function setCalendar(data) {
+export function setEvents(events) {
     return {
-        'type': SET_CALENDAR,
-        'data': data
+        'type': SET_EVENTS,
+        'events': events
     };
 }

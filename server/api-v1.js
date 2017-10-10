@@ -1,6 +1,6 @@
 
-const dav = require('dav');
 const _ = require('lodash');
+const dav = require('dav');
 const ical = require('ical.js');
 
 function getCalendar(request, reply) {
@@ -12,7 +12,20 @@ function getCalendar(request, reply) {
     );
 
     dav.createAccount({
+        'filters': [{
+            'type': 'comp-filter',
+            'attrs': { 'name': 'VCALENDAR' },
+            'children': [{
+                'type': 'comp-filter',
+                'attrs': { 'name': 'VEVENT' },
+                'children': [{
+                    'type': 'time-range',
+                    'attrs': { 'start': '19970714T170000Z' }
+                }]
+            }]
+        }],
         'server': 'https://nextcloud.socketwiz.com/remote.php/dav/',
+        loadObjects: true,
         'xhr': xhr
     }).then(function getAccount(account) {
         account.calendars.forEach(function getCalendars(calendar) {
