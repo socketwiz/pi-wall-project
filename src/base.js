@@ -1,5 +1,6 @@
 
 import client from 'socket.io-client';
+import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
 import Schedule from './schedule.json';
 
@@ -27,17 +28,21 @@ export function pushNavigation() {
  * Navigate to the bus app
  */
 export function switchToBus() {
+    const now = moment();
+
     let nextPickup = Schedule.pickups.reduce((a, b) => {
         const momentA = moment(a, 'HH:mm:ss');
         const momentB = moment(b, 'HH:mm:ss');
 
         return (momentA.isAfter(now) && momentA.isBefore(momentB)) ? momentA : momentB;
     });
-    let now = moment();
 
-    nextPickup.subtract(10, 'minutes');
+    const beforeNextPickup = cloneDeep(nextPickup);
 
-    if (nextPickup.diff(now, 'minutes') === 0) {
+    beforeNextPickup.subtract(10, 'minutes');
+
+    if (beforeNextPickup.diff(now, 'minutes') <= 0 &&
+        nextPickup.diff(now, 'minutes') >= 0) {
         window.location.href = '/bus';
     }
 }
