@@ -11,13 +11,13 @@ then
     tmux new-window -t pi-wall-project:3 -n Zsh
 
     # run the server in the first window
-    tmux send-keys -t pi-wall-project:0.0 'cd ~/dev/pi-wall-project && yarn run server' C-m
+    tmux send-keys -t pi-wall-project:0.0 'cd ~/dev/pi-wall-project && npm run server' C-m
 
     # run the client in the second window
-    tmux send-keys -t pi-wall-project:1.0 'cd ~/dev/pi-wall-project && yarn start' C-m
+    tmux send-keys -t pi-wall-project:1.0 'cd ~/dev/pi-wall-project && npm start' C-m
 
     # run the tests in the third window
-    tmux send-keys -t pi-wall-project:2.0 'cd ~/dev/pi-wall-project && yarn run test' C-m
+    tmux send-keys -t pi-wall-project:2.0 'cd ~/dev/pi-wall-project && npm run test' C-m
 
     # just get to the proper path in the last window
     tmux send-keys -t pi-wall-project:3.0 'cd ~/dev/pi-wall-project' C-m
