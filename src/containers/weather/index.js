@@ -15,6 +15,8 @@ function mapStateToProps(state) {
         'forecast': state.weatherReducer.forecast,
         'humidity': state.weatherReducer.humidity,
         'temp': state.weatherReducer.temp,
+        'temp_min': state.weatherReducer.temp_min,
+        'temp_max': state.weatherReducer.temp_max,
         'weather': state.weatherReducer.weather,
         'wind': state.weatherReducer.wind
     };
@@ -42,6 +44,8 @@ function mapDispatchToProps(dispatch) {
                         dispatch(setWeather({
                             'error': '',
                             'temp': data.main.temp,
+                            'temp_min': data.main.temp_min,
+                            'temp_max': data.main.temp_max,
                             'humidity': data.main.humidity,
                             'weather': data.weather,
                             'wind': data.wind.speed

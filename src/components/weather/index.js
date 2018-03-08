@@ -36,6 +36,16 @@ class Weather extends Component {
     }
 
     /**
+     * Convert fahrenheit to celsius
+     *
+     * @param {Number} fahrenheit - temp to convert
+     * @returns {Number} - temp converted to celsius
+     */
+    toCelsius(fahrenheit) {
+        return (fahrenheit - 32 * (5 / 9)).toFixed(2);
+    }
+
+    /**
      * React lifecycle method, invoked immediately after a component is mounted
      */
     componentDidMount() {
@@ -80,6 +90,8 @@ class Weather extends Component {
             humidity,
             forecast,
             temp,
+            temp_min,
+            temp_max,
             weather,
             wind
         } = this.props;
@@ -156,6 +168,20 @@ class Weather extends Component {
                         <section className="weather-details">
                             <div className="temp">
                                 <span className="temp-number">{temp}</span>
+                                <span className="tempType typeF">F</span>
+                                <span className="wi wi-degrees"></span>
+                            </div>
+                            <div className="variants">
+                                <span>Low</span> {temp_min} <span className="wi wi-degrees"></span>
+                            </div>
+                            <div className="variants">
+                                <span>High</span> {temp_max} <span className="wi wi-degrees"></span>
+                            </div>
+                        </section>
+                        <section className="weather-details">
+                            <div className="temp">
+                                <span className="temp-number">{this.toCelsius(temp)}</span>
+                                <span className="tempType typeC">C</span>
                                 <span className="wi wi-degrees"></span>
                             </div>
                             <div className="humidity">
@@ -187,6 +213,8 @@ Weather.propTypes = {
     'humidity': PropTypes.number,
     'forecast': PropTypes.array,
     'temp': PropTypes.number,
+    'temp_min': PropTypes.number,
+    'temp_max': PropTypes.number,
     'weather': PropTypes.array,
     'wind': PropTypes.number
 };

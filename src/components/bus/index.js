@@ -2,6 +2,8 @@
  * Bus application
  */
 
+import './bus.css';
+
 import alarmSound from './sounds/school-bell.wav';
 import busImage from './images/bus.png';
 import {extendMoment} from 'moment-range';
