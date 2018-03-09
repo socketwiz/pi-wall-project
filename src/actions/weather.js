@@ -4,8 +4,8 @@
  *
  */
 
-export const SET_WEATHER = 'SET_WEATHER';
 export const SET_FORECAST = 'SET_FORECAST';
+export const SET_WEATHER = 'SET_WEATHER';
 
 /**
  * Set the forecast data in the redux store

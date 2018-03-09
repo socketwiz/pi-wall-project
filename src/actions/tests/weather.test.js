@@ -1,20 +1,25 @@
 /* global describe, it */
 
 import {expect} from 'chai';
-import {
-    defaultAction
-} from '../weather';
-import {
-    DEFAULT_ACTION
-} from '../../containers/Weather/constants';
+import {setForecast, setWeather} from '../weather';
+import {SET_FORECAST, SET_WEATHER} from '../weather';
 
 describe('Weather actions', () => {
-    describe('Default Action', () => {
-        it('has a type of DEFAULT_ACTION', () => {
+    describe('Set forecast', () => {
+        it('has a type of SET_FORECAST', () => {
             const expected = {
-                type: DEFAULT_ACTION
+                'type': SET_FORECAST,
+                'data': undefined
             };
-            expect(defaultAction()).to.eql(expected);
+            expect(setForecast()).to.eql(expected);
+        });
+
+        it('has a type of SET_WEATHER', () => {
+            const expected = {
+                'type': SET_WEATHER,
+                'data': undefined
+            };
+            expect(setWeather()).to.eql(expected);
         });
     });
 });
