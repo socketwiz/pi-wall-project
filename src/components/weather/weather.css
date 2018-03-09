@@ -77,15 +77,15 @@ body.very-cold,
 
 .weather-details .tempType {
     font-size: 0.2em;
-    position: absolute;
+    position: relative;
 }
 
 .temp > .typeF {
-    bottom: 356px;
+    bottom: 43px;
 }
 
 .temp > .typeC {
-    bottom: 121px;
+    bottom: 43px;
 }
 
 .weather-details .temp .temp-number,

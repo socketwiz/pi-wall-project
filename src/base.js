@@ -1,6 +1,7 @@
 
 import client from 'socket.io-client';
 import cloneDeep from 'lodash/cloneDeep';
+import {COUNTDOWN} from './constants';
 import moment from 'moment';
 import Schedule from './schedule.json';
 
@@ -39,7 +40,7 @@ export function switchToBus() {
 
     const beforeNextPickup = cloneDeep(nextPickup);
 
-    beforeNextPickup.subtract(10, 'minutes');
+    beforeNextPickup.subtract(COUNTDOWN, 'minutes');
 
     if (beforeNextPickup.diff(now, 'minutes') <= 0 &&
         nextPickup.diff(now, 'minutes') >= 0) {

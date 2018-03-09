@@ -49,3 +49,7 @@ jspm_packages
 
 # Build artifacts
 public/js
+
+src/schedule.json
+env
+

@@ -6,8 +6,8 @@ import './bus.css';
 
 import alarmSound from './sounds/school-bell.wav';
 import busImage from './images/bus.png';
+import {COUNTDOWN, SECOND} from '../../constants';
 import {extendMoment} from 'moment-range';
-import {MINUTE, SECOND} from '../../constants';
 import moment from 'moment';
 import {pushNavigation} from '../../base';
 import React, {Component} from 'react';
@@ -54,23 +54,10 @@ class Bus extends Component {
      * Navigate to the weather app
      */
     switchToWeather() {
-        const nextPickup = Schedule.pickups.reduce((a, b) => {
-            const momentA = moment(a, 'HH:mm:ss');
-            const momentB = moment(b, 'HH:mm:ss');
-
-            return (momentA.isAfter(now) && momentA.isBefore(momentB)) ? momentA : momentB;
-        });
-        const now = moment();
-
-        if (nextPickup.diff(now, 'minutes') > 10) {
-            // there is another pickup, but its a ways out, switch back to weather
-            window.location.href = '/';
-        }
-
-        if (nextPickup.diff(now, 'minutes') < 0) {
-            // there are no more pickups today, switch back to weather
-            window.location.href = '/';
-        }
+        // there may or may not be another pickup,
+        // switch back to weather for now, weather
+        // can switch back if it needs to
+        window.location.href = '/';
     }
 
     /**
@@ -92,6 +79,9 @@ class Bus extends Component {
             if (this.soundAlarm) {
                 console.log('Sounding alarm!!!'); // eslint-disable-line no-console
                 this.audio.play();
+
+                // give the sound some time to play out then switch back to weather
+                this.weatherTimer = setInterval(this.switchToWeather, 30 * SECOND);
             }
             timer = 0;
         }
@@ -119,8 +109,6 @@ class Bus extends Component {
         const IS_WEEKEND = (DAY === 6) || (DAY === 0);
         const HOLIDAYS = Schedule.holidays;
         const TODAY = new Date();
-
-        this.weatherTimer = setInterval(this.switchToWeather.bind(this), 1 * MINUTE);
 
         let dayOff = false;
 
@@ -167,7 +155,7 @@ class Bus extends Component {
         let dayPartial = {};
         let runningClass = ['bus-timer'];
         let timeLeft = secondsLeft / 60;
-        let time = timeLeft < 10 ? '0' + timeLeft + ':00' : timeLeft + ':00';
+        let time = timeLeft < COUNTDOWN ? '0' + timeLeft + ':00' : timeLeft + ':00';
         
         if (running) {
             time = `${minutes}:${seconds}`;
