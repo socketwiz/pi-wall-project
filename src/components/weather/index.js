@@ -42,7 +42,7 @@ class Weather extends Component {
      * @returns {Number} - temp converted to celsius
      */
     toCelsius(fahrenheit) {
-        return (fahrenheit - 32 * (5 / 9)).toFixed(2);
+        return ((fahrenheit - 32) * (5 / 9)).toFixed(2);
     }
 
     /**
