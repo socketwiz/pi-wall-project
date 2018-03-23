@@ -6,11 +6,11 @@ module.exports = {
     'apps': [
         // First application
         {
-            'name': 'pi-wall-project',
-            'script': 'server/index.js',
+            'name': 'web-starter-kit',
+            'script': '.',
             'env_production': {
                 'NODE_ENV': 'production',
-                'PORT': 80
+                'PORT': 8000
             }
         }
     ]

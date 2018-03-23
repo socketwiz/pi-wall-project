@@ -7,20 +7,24 @@ then
 
     # create moar windows
     tmux new-window -t pi-wall-project:1 -n Client
-    tmux new-window -t pi-wall-project:2 -n Test
-    tmux new-window -t pi-wall-project:3 -n Zsh
+    tmux new-window -t pi-wall-project:2 -n TestClient
+    tmux new-window -t pi-wall-project:3 -n TestServer
+    tmux new-window -t pi-wall-project:4 -n Zsh
 
     # run the server in the first window
-    tmux send-keys -t pi-wall-project:0.0 'cd ~/dev/pi-wall-project && npm run server' C-m
+    tmux send-keys -t pi-wall-project:0.0 'cd ~/dev/pi-wall-project && npm run start:server' C-m
 
     # run the client in the second window
-    tmux send-keys -t pi-wall-project:1.0 'cd ~/dev/pi-wall-project && npm start' C-m
+    tmux send-keys -t pi-wall-project:1.0 'cd ~/dev/pi-wall-project/frontend && npm start' C-m
 
-    # run the tests in the third window
-    tmux send-keys -t pi-wall-project:2.0 'cd ~/dev/pi-wall-project && npm run test' C-m
+    # run the client tests in the third window
+    tmux send-keys -t pi-wall-project:2.0 'cd ~/dev/pi-wall-project/frontend && npm test' C-m
+
+    # run the server tests in the fourth window
+    tmux send-keys -t pi-wall-project:3.0 'cd ~/dev/pi-wall-project && npm run test:server' C-m
 
     # just get to the proper path in the last window
-    tmux send-keys -t pi-wall-project:3.0 'cd ~/dev/pi-wall-project' C-m
+    tmux send-keys -t pi-wall-project:4.0 'cd ~/dev/pi-wall-project' C-m
 
     # select the server window and pane
     tmux select-window -t pi-wall-project:0.0

@@ -9,10 +9,11 @@
         "lib": [ "dom", "es2017" ]
     },
     "include": [
-        "src/**/*"
+        "frontend/**/*",
+        "server/**/*"
     ],
     "exclude": [
-        "node_modules"
+        "frontend/build"
     ]
 }
 

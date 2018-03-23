@@ -1,10 +1,9 @@
 {
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 8,
         "sourceType": "module",
         "ecmaFeatures": {
-            "jsx": true,
-            "modules": true
+            "jsx": true
         }
     },
     "rules": {
@@ -13,7 +12,10 @@
         "comma-spacing": [2, {"before": false, "after": true}],
         "computed-property-spacing": [2, "never"],
         "eol-last": 2,
-        "indent": [2, 4, {"SwitchCase": 1}],
+        "indent": [2, 4, {
+            "VariableDeclarator": 1,
+            "SwitchCase": 1
+        }],
         "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
         "func-names": 2,
         "max-len": [2, 120, 4],
