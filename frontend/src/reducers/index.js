@@ -1,9 +1,11 @@
 
+import calendarReducer from './calendar';
 import {combineReducers} from 'redux';
-import helloWorldReducer from './hello-world';
+import weatherReducer from './weather';
 
 const rootReducer = combineReducers({
-    helloWorldReducer
+    calendarReducer,
+    weatherReducer
 });
 
 export default rootReducer;

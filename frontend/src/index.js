@@ -1,24 +1,27 @@
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'weather-icons/css/weather-icons.min.css';
 import './index.css';
+
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Bus from './components/bus';
+import Calendar from './containers/calendar';
 import {createStore} from 'redux';
-import {composeWithDevTools} from 'redux-devtools-extension';
-import HelloWorld from './containers/hello-world';
 import {Provider} from 'react-redux';
 import React from 'react';
-import {render} from 'react-dom';
+import ReactDOM from 'react-dom';
 import rootReducer from './reducers/index';
+import Weather from './containers/weather';
 
-const composeEnhancers = composeWithDevTools({
-    // Specify name here, actionsBlacklist, actionsCreators and other options if needed
-});
-const store = createStore(rootReducer, composeEnhancers());
+const store = createStore(rootReducer);
 
-render(
+ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={HelloWorld} />
+                <Route exact path="/bus" component={Bus} />
+                <Route exact path="/calendar" component={Calendar} />
+                <Route exact path="/" component={Weather} />
             </Switch>
         </BrowserRouter>
     </Provider>,

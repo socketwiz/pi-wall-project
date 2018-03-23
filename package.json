@@ -25,6 +25,7 @@
     "test:server:debug": "mocha --inspect-brk server/test"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "compression": "1.7.2",
     "cors": "2.8.4",
     "helmet": "3.12.0",
