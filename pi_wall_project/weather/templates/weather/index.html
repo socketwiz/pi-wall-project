@@ -1,1 +1,10 @@
-weather
+{% extends "pi_wall_project/base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href='{% static "css/weather.css" %}'>
+{% endblock %}
+{% block js %}
+<script async src='{% static "js/vendor-weather.bundle.js" %}' type="module"></script>
+<script async src='{% static "js/weather.bundle.js" %}' type="module"></script>
+{% endblock %}

@@ -1,0 +1,23 @@
+#! /bin/sh
+
+if ! tmux has-session -t pi-wall-project
+then
+    tmux new-session -s pi-wall-project -n Server -d
+
+    # create moar windows
+    tmux new-window -t pi-wall-project:1 -n Test
+    tmux new-window -t pi-wall-project:2 -n Zsh
+
+    # run the server in the first window
+    tmux send-keys -t pi-wall-project:0.0 'cd ~/dev/pi-wall-project/pi_wall_project/ && pipenv run python manage.py runserver' C-m
+
+    # run the server tests in the second window
+    tmux send-keys -t pi-wall-project:1.0 'cd ~/dev/pi-wall-project/pi_wall_project/ && pipenv shell' C-m
+
+    # just get to the proper path in the last window
+    tmux send-keys -t pi-wall-project:2.0 'cd ~/dev/pi-wall-project && pipenv shell' C-m
+
+    # select the server window and pane
+    tmux select-window -t pi-wall-project:0.0
+fi
+tmux attach -t pi-wall-project
