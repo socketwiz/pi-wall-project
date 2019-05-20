@@ -1,0 +1,7 @@
+{% extends "pi_wall_project/base.html" %}
+{% load staticfiles %}
+
+{% block js %}
+<script async src='{% static "js/vendor-wifi.bundle.js" %}' type="module"></script>
+<script async src='{% static "js/wifi.bundle.js" %}' type="module"></script>
+{% endblock %}
