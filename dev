@@ -10,15 +10,15 @@ then
     tmux new-window -t pi-wall-project:3 -n Zsh
 
     # run the server in the first window
-    tmux send-keys -t pi-wall-project:0.0 'cd ~/dev/pi-wall-project/pi_wall_project/ && pipenv run python manage.py runserver' C-m
+    tmux send-keys -t pi-wall-project:0.0 'cd ~/dev/pi-wall-project/pi_wall_project/ && python3 -m pipenv run python3 manage.py runserver' C-m
 
     tmux send-keys -t pi-wall-project:1.0 'cd ~/dev/pi-wall-project/pi_wall_project/' C-m
 
     # run the server tests in the second window
-    tmux send-keys -t pi-wall-project:2.0 'cd ~/dev/pi-wall-project/pi_wall_project/ && pipenv shell' C-m
+    tmux send-keys -t pi-wall-project:2.0 'cd ~/dev/pi-wall-project/pi_wall_project/ && python3 -m pipenv shell' C-m
 
     # just get to the proper path in the last window
-    tmux send-keys -t pi-wall-project:3.0 'cd ~/dev/pi-wall-project && pipenv shell' C-m
+    tmux send-keys -t pi-wall-project:3.0 'cd ~/dev/pi-wall-project && python3 -m pipenv shell' C-m
 
     # select the server window and pane
     tmux select-window -t pi-wall-project:0.0

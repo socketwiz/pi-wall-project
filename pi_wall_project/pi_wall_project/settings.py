@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'weather',
     'bus',
     'wifi',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

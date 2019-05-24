@@ -1,0 +1,10 @@
+{% extends "pi_wall_project/base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href='{% static "css/bus.css" %}'>
+{% endblock %}
+{% block js %}
+<script async src='{% static "js/vendor-bus.bundle.js" %}' type="module"></script>
+<script async src='{% static "js/bus.bundle.js" %}' type="module"></script>
+{% endblock %}

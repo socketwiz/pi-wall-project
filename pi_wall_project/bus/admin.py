@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Holiday, Schedule
+
+admin.site.register(Holiday)
+admin.site.register(Schedule)

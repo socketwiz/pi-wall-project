@@ -1,0 +1,19 @@
+
+.stopped {
+    color: rgb(217, 0, 0);
+}
+
+.bus {
+    background-color: rgb(0, 0, 0);
+}
+
+.bus-timer {
+    background: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
+    display: block;
+    font-size: 140px;
+}
+
+.top {
+    margin-top: 20px;
+}
