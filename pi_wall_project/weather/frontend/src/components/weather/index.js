@@ -7,6 +7,7 @@ import classNames from '../class-names';
 import {MINUTE, SECOND} from '../../constants';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import {switchToBus} from '../../base';
 import React, {Component} from 'react';
 
 class Weather extends Component {
@@ -52,6 +53,7 @@ class Weather extends Component {
       getCurrentWeather();
     }
 
+    this.busTimer = setInterval(switchToBus, 1 * MINUTE);
     this.nowTimer = setInterval(this.getCurrentTime.bind(this), 1 * SECOND);
     this.weatherTimer = setInterval(getCurrentWeather, 5 * MINUTE);
   }

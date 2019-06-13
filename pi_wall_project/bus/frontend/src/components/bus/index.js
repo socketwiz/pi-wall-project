@@ -3,8 +3,8 @@
  */
 
 import {COUNTDOWN, SECOND} from '../../constants';
+import {extendMoment} from 'moment-range';
 import moment from 'moment';
-import {isHoliday, isWeekend, pushNavigation} from '../../base';
 import React, {Component} from 'react';
 
 class Bus extends Component {
@@ -28,6 +28,43 @@ class Bus extends Component {
       'seconds': 0,
       'totalTime': (secondsLeft / 60)
     };
+  }
+
+  /**
+   * Based on the day, determine whether or not this is a weekend
+   */
+  isWeekend() {
+    const day = moment().day();
+
+    return (day === 6) || (day === 0);
+  }
+
+  /**
+   * Look through the schedule and determine if today is a holiday or not
+   *
+   * @param {Array} holidays - array of year, month, day
+   * @returns {Boolean} - true if holiday otherwise false
+   */
+  async isHoliday() {
+    const holidayResponse = await fetch('/bus/api/holiday/');
+    const holidays = await holidayResponse.json();
+    const now = new Date();
+    const month = ('0' + (now.getMonth() + 1)).slice(-2);
+    const day = ('0' + now.getDate()).slice(-2);
+    const formattedDate = `${now.getFullYear()}-${month}-${day}T12:00:00.000Z`;
+    const today = new Date(formattedDate);
+
+    for (let i = 0; i < holidays.length; i++) {
+      const holidayBegin = new Date(`${holidays[i].begin}T12:00:00.000Z`);
+      const holidayEnd = new Date(`${holidays[i].end}T12:00:00.000Z`);
+      const range = extendMoment(moment).range(holidayBegin, holidayEnd);
+
+      if (range.contains(today)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**
@@ -102,14 +139,12 @@ class Bus extends Component {
         console.error(error.message); // eslint-disable-line no-console
       });
 
-    if (await isHoliday() || isWeekend()) {
+    if (await this.isHoliday() || this.isWeekend()) {
       this.setState({'dayOff': true});
     } else {
       this.setState({'dayOff': false});
       this.runningTime = setInterval(this.countdown.bind(this), 1 * SECOND);
     }
-
-    pushNavigation();
   }
 
   /**
