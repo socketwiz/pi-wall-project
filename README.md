@@ -4,6 +4,6 @@
 [Desktop Entry]
 Type=Application
 Name=AutoChromium
-Exec=chromium-browser --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk http://localhost:8080/
+Exec=chromium-browser --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk http://localhost:8000/
 StartupNotify=false
 ```
