@@ -1,0 +1,6 @@
+#! /usr/bin/env bash
+
+zip staged.zip $(git ls-files)
+echo Building docker container
+sudo docker-compose up --build -d
+rm staged.zip
