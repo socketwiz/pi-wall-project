@@ -1,10 +1,10 @@
 #! /usr/bin/env bash
 
 # install modules
-(cd pi_wall_project/common/frontend && npm install --production)
-(cd pi_wall_project/weather/frontend && npm install --production)
-(cd pi_wall_project/bus/frontend && npm install --production)
-(cd pi_wall_project/wifi/frontend && npm install --production)
+(cd pi_wall_project/common/frontend && npm install)
+(cd pi_wall_project/weather/frontend && npm install)
+(cd pi_wall_project/bus/frontend && npm install)
+(cd pi_wall_project/wifi/frontend && npm install)
 
 # build apps
 (cd pi_wall_project/common/frontend && npm run build)
