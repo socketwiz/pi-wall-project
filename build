@@ -1,13 +1,9 @@
 #! /usr/bin/env bash
 
-# install modules
-(cd pi_wall_project/common/frontend && npm install)
-(cd pi_wall_project/weather/frontend && npm install)
-(cd pi_wall_project/bus/frontend && npm install)
-(cd pi_wall_project/wifi/frontend && npm install)
-
-# build apps
-(cd pi_wall_project/common/frontend && npm run build)
-(cd pi_wall_project/weather/frontend && npm run build)
-(cd pi_wall_project/bus/frontend && npm run build)
-(cd pi_wall_project/wifi/frontend && npm run build)
+for frontend in $(find . -name frontend)
+do
+  echo "INSTALLING: $frontend"
+  (cd $frontend && npm install)
+  echo "BUILDING: $frontend"
+  (cd $frontend && npm run build)
+done

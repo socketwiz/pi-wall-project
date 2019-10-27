@@ -1,9 +1,29 @@
 version: '3'
 
 services:
-  web:
+  app:
     build: .
-    working_dir: /code/pi_wall_project
-    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+      - static_volume:/code/pi_wall_project/static
+    networks:
+      - nginx_network
+
+  nginx:
+    image: nginx:1.13
     ports:
-      - "8000:8000"
+      - 8000:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/code/pi_wall_project/static
+    depends_on:  # <-- wait for app to be "ready" before starting this service
+      - app
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
+
+volumes:
+  static_volume:

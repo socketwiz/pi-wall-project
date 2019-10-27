@@ -13,17 +13,17 @@
   "author": "Ricky Nelson <rickyn@socketwiz.com>",
   "license": "ISC",
   "dependencies": {
-    "npm-check-updates": "^3.1.23"
+    "npm-check-updates": "^3.1.25"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/runtime": "^7.6.0",
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/runtime": "^7.6.3",
     "babel-loader": "^8.0.6",
     "file-loader": "^4.2.0",
-    "url-loader": "^2.1.0",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.8"
+    "url-loader": "^2.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
   }
 }
