@@ -117,17 +117,25 @@ class Bus extends Component {
    * React lifecycle method, invoked immediately after a component is mounted
    */
   async componentDidMount() {
+    const timeFormat = 'HH:mm:ss';
+
     let now = moment();
 
     fetch('/bus/api/schedule')
       .then((response) => response.json())
       .then((data) => {
-        let nextPickup = data.reduce((a, b) => {
-          const momentA = moment(a.pickup, 'HH:mm:ss');
-          const momentB = moment(b.pickup, 'HH:mm:ss');
+        let nextPickup = ((times) => {
+          if (times.length === 1) {
+            return moment(times[0].pickup, timeFormat);
+          }
 
-          return (momentA.isAfter(now) && momentA.isBefore(momentB)) ? momentA : momentB;
-        });
+          return times.reduce((a, b) => {
+            const momentA = moment(a.pickup, timeFormat);
+            const momentB = moment(b.pickup, timeFormat);
+
+            return (momentA.isAfter(now) && momentA.isBefore(momentB)) ? momentA : momentB;
+          });
+        })(data);
 
         // Bus pickup
         if (now.isSameOrBefore(nextPickup)) {

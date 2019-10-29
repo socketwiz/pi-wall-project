@@ -9,6 +9,7 @@ import moment from 'moment';
  */
 export async function switchToBus() {
   const now = moment();
+  const timeFormat = 'HH:mm:ss';
 
   if (await isHoliday() || isWeekend()) {
     return;
@@ -17,15 +18,21 @@ export async function switchToBus() {
   fetch('/bus/api/schedule')
     .then((response) => response.json())
     .then((data) => {
-      let nextPickup = data.reduce((a, b) => {
-        const momentA = moment(a.pickup, 'HH:mm:ss');
-        const momentB = moment(b.pickup, 'HH:mm:ss');
+      let nextPickup = ((times) => {
+        if (times.length === 1) {
+          return moment(times[0].pickup, timeFormat);
+        }
 
-        return (momentA.isAfter(now) && momentA.isBefore(momentB)) ? momentA : momentB;
-      });
+        return times.reduce((a, b) => {
+          const momentA = moment(a.pickup, timeFormat);
+          const momentB = moment(b.pickup, timeFormat);
+
+          return (momentA.isAfter(now) && momentA.isBefore(momentB)) ? momentA : momentB;
+        });
+      })(data);
 
       if (typeof nextPickup === 'string') {
-        nextPickup = moment(nextPickup, 'HH:mm:ss');
+        nextPickup = moment(nextPickup, timeFormat);
       }
 
       const beforeNextPickup = cloneDeep(nextPickup);
@@ -38,7 +45,7 @@ export async function switchToBus() {
       }
     })
     .catch((error) => {
-      console.error(error.message); // eslint-disable-line no-console
+      console.error(error); // eslint-disable-line no-console
     });
 }
 

@@ -25,7 +25,7 @@ SECRET_KEY = '@qxatmit&x^55s#)k@%aq2n(e9#c_#_-tn$5g4-l@b-&41ukyr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'pi']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'pi']
 
 
 # Application definition
