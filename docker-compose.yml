@@ -5,7 +5,7 @@ services:
     build: .
     volumes:
       - .:/code
-      - static_volume:/code/pi_wall_project/static
+      - static_volume:/srv/www/pi-wall-project/static/
     networks:
       - nginx_network
 
@@ -15,7 +15,7 @@ services:
       - 8000:80
     volumes:
       - ./config/nginx/conf.d:/etc/nginx/conf.d
-      - static_volume:/code/pi_wall_project/static
+      - static_volume:/srv/www/pi-wall-project/static/
     depends_on:  # <-- wait for app to be "ready" before starting this service
       - app
     networks:

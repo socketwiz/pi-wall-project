@@ -3,6 +3,7 @@ FROM python:3.6
 ENV PYTHONUNBUFFERED 1
 
 RUN mkdir /code
+RUN mkdir -p /srv/www/pi-wall-project/static
 WORKDIR /code
 
 COPY staged.zip /code/
