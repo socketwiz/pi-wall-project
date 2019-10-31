@@ -5,7 +5,7 @@ from .serializers import HolidaySerializer, ScheduleSerializer
 from rest_framework import generics
 
 
-import pyaudio, _thread, wave
+import os, pyaudio, _thread, wave
 
 
 def play_sound():
@@ -15,7 +15,7 @@ def play_sound():
     try:
         sound = wave.open('bus/media/%s' % alarm, 'rb')
     except FileNotFoundError:
-        return JsonResponse({'error': '%s not found' % alarm}, status=500)
+        print('%s/bus/media/%s not found' % (os.getcwd(), alarm))
     else:
         pa = pyaudio.PyAudio()
         stream = pa.open(format = pa.get_format_from_width(sound.getsampwidth()),
