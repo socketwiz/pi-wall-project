@@ -1,7 +1,0 @@
-#! /usr/bin/env bash
-
-zip staged.zip $(git ls-files)
-echo Building docker container
-sudo docker-compose up --build -d
-sudo docker-compose run app pi_wall_project/manage.py collectstatic --no-input
-rm staged.zip

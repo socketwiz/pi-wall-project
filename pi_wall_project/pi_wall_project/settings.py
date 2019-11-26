@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'weather',
     'bus',
     'wifi',
+    'channels',
     'rest_framework',
 ]
 
@@ -131,3 +132,5 @@ USE_TZ = True
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = '/srv/www/pi-wall-project/static/'
 STATIC_URL = '/static/'
+
+ASGI_APPLICATION = 'pi_wall_project.routing.application'
