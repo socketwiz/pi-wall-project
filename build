@@ -7,3 +7,4 @@ do
   echo "BUILDING: $frontend"
   (cd $frontend && npm run build)
 done
+cd pi_wall_project && pipenv run python manage.py collectstatic
