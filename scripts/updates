@@ -3,5 +3,7 @@
 for frontend in $(find . -name frontend)
 do
   echo "UPDATING: $frontend"
-  (cd $frontend && npm run updates)
+  (cd "$frontend" && npm run updates)
 done
+
+pipenv update
