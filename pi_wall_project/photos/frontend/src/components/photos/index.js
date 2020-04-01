@@ -16,6 +16,7 @@ class Photos extends Component {
     this.state = {
       'image': ''
     };
+    this.nextImageInterval = null;
   }
 
   getNextImage() {
@@ -30,7 +31,11 @@ class Photos extends Component {
     const seconds = 10 * 1000;
 
     this.getNextImage();
-    setInterval(() => this.getNextImage(), seconds);
+    this.nextImageInterval = setInterval(() => this.getNextImage(), seconds);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.nextImageInterval);
   }
 
   /**
