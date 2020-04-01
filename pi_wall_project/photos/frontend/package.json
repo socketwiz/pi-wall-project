@@ -1,0 +1,34 @@
+{
+  "name": "photos",
+  "version": "1.0.0",
+  "description": "Photos gallery",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --config webpack-dev.config.js",
+    "build": "webpack --config webpack-prod.config.js",
+    "postupdates": "npm install",
+    "updates": "ncu -u"
+  },
+  "keywords": [],
+  "author": "Ricky Nelson <rickyn@socketwiz.com>",
+  "license": "ISC",
+  "dependencies": {
+    "npm-check-updates": "^4.1.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/runtime": "^7.9.2",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.4.2",
+    "file-loader": "^6.0.0",
+    "style-loader": "^1.1.3",
+    "url-loader": "^4.0.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}

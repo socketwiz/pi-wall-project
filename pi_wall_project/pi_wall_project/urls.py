@@ -20,6 +20,7 @@ urlpatterns = [
     path('', include('weather.urls', namespace='index')),
     path('admin/', admin.site.urls),
     path('bus/', include('bus.urls')),
+    path('photos/', include('photos.urls')),
     path('weather/', include('weather.urls')),
     path('wifi/', include('wifi.urls')),
 ]

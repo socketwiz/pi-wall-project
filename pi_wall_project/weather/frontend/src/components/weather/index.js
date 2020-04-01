@@ -3,7 +3,7 @@
  * Weather application
  */
 
-import classNames from '../class-names';
+import classNames from 'zol-class-names';
 import {MINUTE, SECOND} from '../../constants';
 import moment from 'moment';
 import PropTypes from 'prop-types';

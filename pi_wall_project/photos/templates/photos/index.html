@@ -1,0 +1,11 @@
+{% extends "pi_wall_project/base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+  <link rel="stylesheet" href='{% static "css/photos.css" %}'>
+{% endblock %}
+{% block js %}
+  <script async src='{% static "js/vendor-photos.bundle.js" %}'></script>
+  <script async src='{% static "js/photos.bundle.js" %}'></script>
+{% endblock %}
+
