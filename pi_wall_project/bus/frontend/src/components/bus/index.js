@@ -68,9 +68,9 @@ class Bus extends Component {
   }
 
   /**
-   * Navigate to the weather app
+   * Navigate to the main app
    */
-  switchToWeather() {
+  switchToMain() {
     // there may or may not be another pickup,
     // switch back to weather for now, weather
     // can switch back if it needs to
@@ -100,7 +100,7 @@ class Bus extends Component {
         console.log(alarm.msg); // eslint-disable-line no-console
 
         // give the sound some time to play out then switch back to weather
-        this.weatherTimer = setTimeout(this.switchToWeather, 30 * SECOND);
+        this.weatherTimer = setTimeout(this.switchToMain, 30 * SECOND);
       }
       timer = 0;
     }
@@ -255,4 +255,3 @@ class Bus extends Component {
 }
 
 export default Bus;
-

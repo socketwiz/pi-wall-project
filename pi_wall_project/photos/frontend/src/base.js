@@ -61,7 +61,6 @@ export function isWeekend() {
 /**
  * Look through the schedule and determine if today is a holiday or not
  *
- * @param {Array} holidays - array of year, month, day
  * @returns {Boolean} - true if holiday otherwise false
  */
 export async function isHoliday() {

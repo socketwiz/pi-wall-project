@@ -7,7 +7,7 @@ import classNames from 'zol-class-names';
 import {MINUTE, SECOND} from '../../constants';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import {switchToBus} from '../../base';
+
 import React, {Component} from 'react';
 
 class Weather extends Component {
@@ -34,13 +34,17 @@ class Weather extends Component {
   }
 
   /**
-   * Convert fahrenheit to celsius
+   * Convert fahrenheit to Celsius
    *
    * @param {Number} fahrenheit - temp to convert
-   * @returns {Number} - temp converted to celsius
+   * @returns {Number} - temp converted to Celsius
    */
   toCelsius(fahrenheit) {
     return parseInt(((fahrenheit - 32) * (5 / 9)).toFixed(2), 10);
+  }
+
+  switchToPhotos() {
+    window.location.href = '/photos';
   }
 
   /**
@@ -53,18 +57,16 @@ class Weather extends Component {
       getCurrentWeather();
     }
 
-    this.busTimer = setInterval(switchToBus, 1 * MINUTE);
     this.nowTimer = setInterval(this.getCurrentTime.bind(this), 1 * SECOND);
-    this.weatherTimer = setInterval(getCurrentWeather, 5 * MINUTE);
+    this.photoTimer = setTimeout(this.switchToPhotos, 1 * MINUTE);
   }
 
   /**
    * React component lifecycle method, invoked immediately before a component is unmounted
    */
   componentWillUnmount() {
-    clearTimeout(this.busTimer);
     clearTimeout(this.nowTimer);
-    clearTimeout(this.weatherTimer);
+    clearTimeout(this.photoTimer);
   }
 
   /**
@@ -89,22 +91,28 @@ class Weather extends Component {
     let bgBodyBackground = 'normal'; // very-warm, warm, normal, cold, very-cold
     let errorPartial;
 
-    // Set the background colour based on the temperature
-    if (temp >= 86) {
-      bgBodyBackground = 'very-warm';
-      bgColorClass.add('very-warm');
-    } else if (temp > 68 && temp < 86) {
-      bgBodyBackground = 'warm';
-      bgColorClass.add('warm');
-    } else if (temp > 50 && temp < 68) {
-      bgBodyBackground = 'normal';
-      bgColorClass.add('normal');
-    } else if (temp > 32 && temp < 50) {
-      bgBodyBackground = 'cold';
-      bgColorClass.add('cold');
-    } else if (temp <= 32) {
-      bgBodyBackground = 'very-cold';
-      bgColorClass.add('very-cold');
+    if (error) {
+      errorPartial = <div className="error">
+        <h1>{error}</h1>
+      </div>;
+    } else {
+      // Set the background colour based on the temperature
+      if (temp >= 86) {
+        bgBodyBackground = 'very-warm';
+        bgColorClass.add('very-warm');
+      } else if (temp > 68 && temp < 86) {
+        bgBodyBackground = 'warm';
+        bgColorClass.add('warm');
+      } else if (temp > 50 && temp < 68) {
+        bgBodyBackground = 'normal';
+        bgColorClass.add('normal');
+      } else if (temp > 32 && temp < 50) {
+        bgBodyBackground = 'cold';
+        bgColorClass.add('cold');
+      } else if (temp <= 32) {
+        bgBodyBackground = 'very-cold';
+        bgColorClass.add('very-cold');
+      }
     }
 
     document.querySelector('body').className = bgBodyBackground;
@@ -120,12 +128,6 @@ class Weather extends Component {
           <div className="col-9">{text}</div>
         </div>;
     });
-
-    if (error) {
-      errorPartial = <div className="error">
-        <h1>{error}</h1>
-        </div>;
-    }
 
     const weatherPartial = <div>
       {errorPartial}

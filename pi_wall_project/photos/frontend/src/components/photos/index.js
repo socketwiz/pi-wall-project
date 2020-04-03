@@ -3,6 +3,8 @@
  */
 
 import React, {Component} from 'react';
+import {MINUTE, SECOND} from '../../constants';
+import {switchToBus} from '../../base';
 
 class Photos extends Component {
   /**
@@ -19,6 +21,9 @@ class Photos extends Component {
     this.nextImageInterval = null;
   }
 
+  /**
+   * Call the API and get a random image
+   */
   getNextImage() {
     fetch('/photos/next_image').then((response) => {
       response.json().then((image) => {
@@ -27,13 +32,20 @@ class Photos extends Component {
     });
   }
 
+  /**
+   * React lifecycle method, invoked immediately after a component is mounted
+   */
   componentDidMount() {
     const seconds = 10 * 1000;
 
     this.getNextImage();
     this.nextImageInterval = setInterval(() => this.getNextImage(), seconds);
+    this.busTimer = setInterval(switchToBus, 1 * MINUTE);
   }
 
+  /**
+   * React component lifecycle method, invoked immediately before a component is unmounted
+   */
   componentWillUnmount() {
     clearInterval(this.nextImageInterval);
   }

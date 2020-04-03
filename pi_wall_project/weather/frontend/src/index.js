@@ -8,8 +8,8 @@ import Weather from './containers/weather.js';
 const store = createStore(rootReducer);
 
 ReactDOM.render(
-        <Provider store={store}>
+    <Provider store={store}>
         <Weather />
-        </Provider>,
+    </Provider>,
     document.getElementById('root')
 );
