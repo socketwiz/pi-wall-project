@@ -61,7 +61,7 @@ class Photos extends Component {
 
     return (
       <div id="imageContainer">
-        <img src={imagePath} alt="family photo" width="1920"/>
+        <img src={imagePath} alt="family photo" />
       </div>
     );
   }
