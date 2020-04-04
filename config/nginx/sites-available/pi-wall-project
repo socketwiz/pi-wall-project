@@ -3,12 +3,6 @@ upstream django {
     server 127.0.0.1:8000;
 }
 
-server {
-    listen       80;
-    server_name  pi;
-    return       301 $scheme://pi$request_uri;
-}
-
 # now we declare our main server
 server {
     listen 80;
