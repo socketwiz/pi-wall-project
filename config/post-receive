@@ -1,0 +1,38 @@
+#! /usr/bin/env bash
+#
+TARGET="/code/pi-wall-project"
+GIT_DIR="/code/pi-wall-project.git"
+BRANCH="master"
+
+export DJANGO_DEBUG='False'
+echo "Backing up current app"
+[ -d "/code/pi-wall-project-last" ] && rm -rf /code/pi-wall-project-last && cp -r /code/pi-wall-project /code/pi-wall-project-last
+[ ! -d "$TARGET" ] && mkdir "$TARGET"
+[ ! -d "$TARGET/pi_wall_project/media" ] && mkdir -p "$TARGET/pi_wall_project/media"
+
+while read -r oldrev newrev ref
+do
+    if [ "$ref" = "refs/heads/$BRANCH" ];
+    then
+        echo "Installing latest system packages"
+        apt-get update
+        apt-get upgrade -y
+        apt-get autoremove -y
+        echo "Copying over new app"
+        git --work-tree="$TARGET" --git-dir="$GIT_DIR" checkout -f "$BRANCH"
+        echo "Installing dependancies"
+        cd /code/pi-wall-project && pipenv install
+        echo "Building static files"
+        cd /code/pi-wall-project/pi-wall-project && pipenv run python manage.py collectstatic --no-input
+        echo "Migrating models into database"
+        cd /code/pi-wall-project/pi-wall-project && source ../../assets/django-prod && pipenv run python manage.py migrate
+        echo "Apply any changes to systemd configurations"
+        systemctl daemon-reload
+        echo "Restarting gunicorn"
+        systemctl restart gunicorn
+        echo "Restarting nginx"
+        systemctl restart nginx
+    else
+	echo "Ref $ref received. Doing nothing: only the ${BRANCH} branch may be deployed on this server."
+    fi
+done

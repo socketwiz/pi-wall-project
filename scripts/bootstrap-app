@@ -1,0 +1,55 @@
+#! /usr/bin/env bash
+
+echo "################################################################################"
+echo "## Attempting connection @ pi"
+echo "################################################################################"
+# Check to see if this machine has already been bootstrapped
+ssh -oStrictHostKeyChecking=no "pi" sudo ls /root/bootstrapped
+connect_error=$?
+echo "$connect_error"
+if [ "$connect_error" == "0" ]; then
+  echo "################################################################################"
+  echo "## Server pi already bootstrapped"
+  echo "################################################################################"
+  exit 1
+else
+  echo "################################################################################"
+  echo "## Bootstrapping Server pi"
+  echo "################################################################################"
+  # 2) Update OS
+  # 3) Install requirements
+  # 4) Pull down code
+  # 5) Install dependencies
+  ssh -oStrictHostKeyChecking=no "pi" <<-ENDBOOTSTRAP
+sudo apt-get update
+echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+sudo apt-get upgrade -y
+sudo apt-get install libpq-dev nginx python3 python3-pip python-cffi libffi-dev portaudio19-dev python-pyaudio -y
+sudo apt-get autoremove -y
+sudo pip3 install pipenv
+sudo mkdir -p /srv/www && sudo mkdir -p /code/pi-wall-project.git && sudo mkdir /code/assets
+cd /code/pi-wall-project.git && sudo git init --bare
+ENDBOOTSTRAP
+  connect_error=$?
+  if [ "$connect_error" == "0" ]; then
+    echo "################################################################################"
+    echo "## Copying files to pi"
+    echo "################################################################################"
+    scp -r config/nginx/sites-available/pi-wall-project "root@pi:/etc/nginx/sites-available/"
+    scp -r config/gunicorn/gunicorn.service "root@pi:/etc/systemd/system/gunicorn.service"
+    scp assets/gunicorn-prod "root@pi:/code/assets/gunicorn-prod"
+    scp assets/django-prod "root@pi:/code/assets/django-prod"
+    scp config/post-receive "root@pi:/code/pi-wall-project.git/hooks/post-receive"
+    ssh -oStrictHostKeyChecking=no "root@pi" <<-ENDSERVERS
+sudo ln -s /etc/nginx/sites-available/pi-wall-project /etc/nginx/sites-enabled
+sudo mkdir /etc/systemd/system/nginx.service.d
+sudo printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
+sudo systemctl daemon-reload
+sudo systemctl enable gunicorn
+sudo systemctl start gunicorn
+sudo systemctl enable nginx
+sudo systemctl start nginx
+#sudo touch /root/bootstrapped
+ENDSERVERS
+  fi
+fi
