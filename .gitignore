@@ -1,3 +1,6 @@
+assets/
+pi_wall_project/static/images/carousel/
+
 ### Django ###
 *.log
 *.pot
