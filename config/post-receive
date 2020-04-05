@@ -29,8 +29,6 @@ do
         cd /code/pi-wall-project/pi_wall_project && source ../../assets/django-prod && pipenv run python manage.py migrate
         echo "Apply any changes to systemd configurations"
         systemctl daemon-reload
-        echo "Restarting gunicorn"
-        systemctl restart gunicorn
         echo "Restarting daphne"
         systemctl restart daphne
         echo "Restarting nginx"

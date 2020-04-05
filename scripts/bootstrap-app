@@ -36,7 +36,6 @@ ENDBOOTSTRAP
     echo "## Copying files to pi"
     echo "################################################################################"
     scp -r config/nginx/sites-available/pi-wall-project "root@pi:/etc/nginx/sites-available/"
-#    scp -r config/gunicorn/gunicorn.service "root@pi:/etc/systemd/system/gunicorn.service"
     scp -r config/daphne/daphne.service "root@pi:/etc/systemd/system/daphne.service"
     scp assets/daphne-prod "root@pi:/code/assets/daphne-prod"
     scp assets/django-prod "root@pi:/code/assets/django-prod"
@@ -46,13 +45,11 @@ sudo ln -s /etc/nginx/sites-available/pi-wall-project /etc/nginx/sites-enabled
 sudo mkdir /etc/systemd/system/nginx.service.d
 sudo printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
 sudo systemctl daemon-reload
-#sudo systemctl enable gunicorn
-#sudo systemctl start gunicorn
 sudo systemctl enable daphne
 sudo systemctl start daphne
 sudo systemctl enable nginx
 sudo systemctl start nginx
-#sudo touch /root/bootstrapped
+sudo touch /root/bootstrapped
 ENDSERVERS
   fi
 fi

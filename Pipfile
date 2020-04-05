@@ -9,7 +9,6 @@ verify_ssl = true
 django = "==2.2.10"
 djangorestframework = "*"
 pyaudio = "*"
-gunicorn = "*"
 channels = "*"
 pyky040 = "*"
 
