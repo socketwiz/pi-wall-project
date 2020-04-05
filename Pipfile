@@ -12,7 +12,6 @@ pyaudio = "*"
 gunicorn = "*"
 channels = "*"
 pyky040 = "*"
-eventlet = "*"
 
 [requires]
 python_version = "3.7"

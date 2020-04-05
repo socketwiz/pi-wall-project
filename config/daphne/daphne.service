@@ -1,0 +1,14 @@
+[Unit]
+Description=pi-wall-project Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/code/pi-wall-project/pi_wall_project
+EnvironmentFile=/code/assets/daphne-prod
+ExecStart=/usr/local/bin/pipenv run daphne -b 127.0.0.1 -p 8000 pi_wall_project.asgi:application
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

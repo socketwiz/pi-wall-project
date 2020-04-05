@@ -134,4 +134,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = '/srv/www/pi-wall-project/static/'
 STATIC_URL = '/static/'
 
+# websockets
 ASGI_APPLICATION = 'pi_wall_project.routing.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+     }
+}

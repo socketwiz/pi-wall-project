@@ -31,6 +31,8 @@ do
         systemctl daemon-reload
         echo "Restarting gunicorn"
         systemctl restart gunicorn
+        echo "Restarting daphne"
+        systemctl restart daphne
         echo "Restarting nginx"
         systemctl restart nginx
     else
