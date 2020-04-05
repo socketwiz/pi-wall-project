@@ -6,7 +6,7 @@
 const socket = new WebSocket(`ws://${window.location.host}/ws/common/`);
 
 socket.onmessage = (event) => {
-  const data = event.data;
+  const data = JSON.parse(event.data);
   console.log(`ws: ${data.scale_position}`);
   switch (data.scale_position) {
     case 0:
