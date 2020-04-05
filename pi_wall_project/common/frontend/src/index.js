@@ -1,21 +1,21 @@
 
 /**
- * Setup the socket.io listeners for navigation
+ * Setup the Web Socket listeners for navigation
  */
 
 const socket = new WebSocket(`ws://${window.location.host}/ws/common/`);
 
 socket.onmessage = (event) => {
   const data = event.data;
-  console.log(`ws: ${data}`);
-  switch (data) {
-    case 'redirect-photos':
+  console.log(`ws: ${data.scale_position}`);
+  switch (data.scale_position) {
+    case 0:
       window.location = '/';
       break;
-    case 'redirect-weather':
+    case 1:
       window.location = '/weather';
       break;
-    case 'redirect-wifi':
+    case 2:
       window.location = '/wifi';
       break;
     default:

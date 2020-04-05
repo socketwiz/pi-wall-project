@@ -12,13 +12,11 @@ class CommonConsumer(WebsocketConsumer):
         self.accept()
 
         def ch_callback(scale_position):
-            print('Hello world! The scale position is {}'.format(scale_position))
             self.send(text_data=json.dumps({
                 'scale_position': scale_position
             }))
 
         def switch_callback():
-            print('Button pushed: {} position: {}')
             self.send(text_data=json.dumps({
                 'button_pressed': True
             }))
@@ -44,9 +42,4 @@ class CommonConsumer(WebsocketConsumer):
     def disconnect(self, close_code):
         self.send(text_data=json.dumps({
             'close_code': close_code
-        }))
-
-    def receive(self, text_data):
-        self.send(text_data=json.dumps({
-            'message': 'hello'
         }))
