@@ -24,7 +24,7 @@ else
 sudo apt-get update
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 sudo apt-get upgrade -y
-sudo apt-get install libpq-dev nginx python3 python3-pip python-cffi libffi-dev portaudio19-dev python-pyaudio xdotool -y
+sudo apt-get install libpq-dev nginx python3 python3-pip python-cffi libffi-dev portaudio19-dev python-pyaudio xdotool libssl-dev -y
 sudo apt-get autoremove -y
 sudo pip3 install pipenv
 sudo mkdir -p /srv/www && sudo mkdir -p /code/pi-wall-project.git && sudo mkdir /code/assets

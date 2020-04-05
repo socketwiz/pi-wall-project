@@ -7,7 +7,7 @@ User=root
 Group=root
 WorkingDirectory=/code/pi-wall-project/pi_wall_project
 EnvironmentFile=/code/assets/gunicorn-prod
-ExecStart=/usr/local/bin/pipenv run gunicorn --access-logfile - --workers 3 --bind 127.0.0.1:8000 pi_wall_project.wsgi:application
+ExecStart=/usr/local/bin/pipenv run gunicorn --worker-class eventlet -w 1 --access-logfile - --bind 127.0.0.1:8000 pi_wall_project.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
