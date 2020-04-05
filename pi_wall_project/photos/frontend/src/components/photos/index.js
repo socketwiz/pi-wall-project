@@ -36,7 +36,7 @@ class Photos extends Component {
    * React lifecycle method, invoked immediately after a component is mounted
    */
   componentDidMount() {
-    const seconds = 10 * 1000;
+    const seconds = 20 * 1000;
 
     this.getNextImage();
     this.nextImageInterval = setInterval(() => this.getNextImage(), seconds);
