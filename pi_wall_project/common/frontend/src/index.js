@@ -9,7 +9,7 @@ socket.onmessage = (event) => {
   console.log(event);
 };
 socket.onclose = (event) => {
-  console.log('socket closed unexpectedly');
+  console.log(event);
 };
 // Listen for messages
 // socket.addEventListener('message', function eventListener(event) {
