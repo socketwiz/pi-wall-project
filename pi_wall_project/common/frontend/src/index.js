@@ -1,28 +1,11 @@
 
-/**
- * Setup the Web Socket listeners for navigation
- */
+import Menu from './components/menu';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const socket = new WebSocket(`ws://${window.location.host}/ws/common/`);
+import './index.css';
 
-socket.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-
-  switch (data.scale_position) {
-    case 0:
-      window.location = '/';
-      break;
-    case 1:
-      window.location = '/weather';
-      break;
-    case 2:
-      window.location = '/wifi';
-      break;
-    default:
-      console.error(`unknown-route: ${data}`);
-      break;
-  }
-};
-socket.onclose = (event) => {
-  console.log(event);
-};
+ReactDOM.render(
+    <Menu />,
+    document.getElementById('menu')
+);

@@ -13,10 +13,12 @@
   </head>
 
   <body>
+    <div id="menu"></div>
     <div class="container-fluid" id="root">
       {% block content %}{% endblock %}
     </div>
 
+    <script async src='{% static "js/vendor-common.bundle.js" %}'></script>
     <script async src='{% static "js/common.bundle.js" %}'></script>
     {% block js %}{% endblock %}
   </body>

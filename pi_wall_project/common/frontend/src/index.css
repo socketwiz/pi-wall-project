@@ -1,0 +1,27 @@
+
+.hide {
+  display: none;
+}
+
+.vertical-menu {
+  margin: 0 auto;
+  width: 300px;
+}
+
+.vertical-menu a {
+  background-color: rgb(238, 238, 238);
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover,
+.focus {
+  background-color: rgb(204, 204, 204);
+}
+
+.vertical-menu a.active {
+  background-color: rgb(76, 175, 80);
+  color: white;
+}
