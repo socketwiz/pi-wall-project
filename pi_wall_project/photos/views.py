@@ -17,5 +17,5 @@ def next_image(request):
         )
     ]
 
-    image = photos[randint(0, len(photos))]
+    image = photos[randint(0, len(photos) - 1)]
     return JsonResponse({'file': image})
