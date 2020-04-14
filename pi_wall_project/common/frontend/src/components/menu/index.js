@@ -29,7 +29,6 @@ class Menu extends Component {
     const socket = new WebSocket(`ws://${window.location.host}/ws/common/`);
 
     socket.onmessage = (event) => {
-      console.log('onmessage');
       const {scalePosition} = this.state;
       const data = JSON.parse(event.data);
 
@@ -46,12 +45,18 @@ class Menu extends Component {
       if (typeof data.button_pressed !== 'undefined') {
         switch (scalePosition) {
           case 0:
+          case 1:
+          case 2:
             window.location = '/';
             break;
-          case 1:
+          case 3:
+          case 4:
+          case 5:
             window.location = '/weather';
             break;
-          case 2:
+          case 6:
+          case 7:
+          case 8:
             window.location = '/wifi';
             break;
           default:
@@ -107,12 +112,18 @@ class Menu extends Component {
 
     switch(scalePosition) {
       case 0:
+      case 1:
+      case 2:
         photoClasses.add('focus');
         break;
-      case 1:
+      case 3:
+      case 4:
+      case 5:
         weatherClasses.add('focus');
         break;
-      case 2:
+      case 6:
+      case 7:
+      case 8:
         wifiClasses.add('focus');
         break;
     }

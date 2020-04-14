@@ -28,7 +28,7 @@ class CommonConsumer(WebsocketConsumer):
             # Setup the options and callbacks (see documentation)
             pi_encoder.setup(
                 scale_min=0,
-                scale_max=3,
+                scale_max=8,
                 step=1,
                 chg_callback=ch_callback,
                 sw_callback=switch_callback
