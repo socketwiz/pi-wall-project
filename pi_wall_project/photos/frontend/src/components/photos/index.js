@@ -57,11 +57,19 @@ class Photos extends Component {
    */
   render() {
     const {image} = this.state;
-    const imagePath = `/static/images/carousel/${image}`;
+    const imageTemplate = ((nextImage) => {
+      if (nextImage) {
+        const imagePath = `/static/images/carousel/${nextImage}`;
+
+        return <img src={imagePath} alt="family photo" />;
+      }
+
+      return <span>Loading next image</span>;
+    })(image);
 
     return (
       <div id="imageContainer">
-        <img src={imagePath} alt="family photo" />
+        {imageTemplate}
       </div>
     );
   }

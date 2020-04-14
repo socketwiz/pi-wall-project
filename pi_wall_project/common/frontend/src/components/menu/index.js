@@ -29,6 +29,7 @@ class Menu extends Component {
     const socket = new WebSocket(`ws://${window.location.host}/ws/common/`);
 
     socket.onmessage = (event) => {
+      console.log('onmessage');
       const {scalePosition} = this.state;
       const data = JSON.parse(event.data);
 
@@ -61,7 +62,7 @@ class Menu extends Component {
     };
 
     socket.onclose = (event) => {
-      console.log(event);
+      console.log('socket-closing');
     };
   }
 

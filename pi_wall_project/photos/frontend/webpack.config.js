@@ -31,25 +31,6 @@ function webpackBase(config) {
       'filename': '[name].bundle.js',
       'path': path.resolve(__dirname, '../../static/js')
     },
-    'optimization': {
-      'splitChunks': {
-        'cacheGroups': {
-          'commons': {
-            'chunks': 'initial',
-            'maxInitialRequests': 5,
-            'minChunks': 2,
-            'minSize': 0
-          },
-          'vendor': {
-            'chunks': 'initial',
-            'enforce': true,
-            'name': 'vendor-photos',
-            'priority': 10,
-            'test': /[\\/]node_modules[\\/]/
-          }
-        }
-      }
-    },
     'watch': config.watch
   };
 
