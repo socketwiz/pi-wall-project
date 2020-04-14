@@ -109,7 +109,7 @@ class Menu extends Component {
     photoClasses.remove('focus');
     weatherClasses.remove('focus');
     wifiClasses.remove('focus');
-
+    console.log(scalePosition);
     switch(scalePosition) {
       case 0:
       case 1:
