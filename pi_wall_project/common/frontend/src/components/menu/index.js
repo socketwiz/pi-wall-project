@@ -106,25 +106,25 @@ class Menu extends Component {
       wifiClasses.add('active');
     }
 
-    photoClasses.remove('focus');
-    weatherClasses.remove('focus');
-    wifiClasses.remove('focus');
+    photoClasses.remove('active');
+    weatherClasses.remove('active');
+    wifiClasses.remove('active');
     console.log(scalePosition);
     switch(scalePosition) {
       case 0:
       case 1:
       case 2:
-        photoClasses.add('focus');
+        photoClasses.add('active');
         break;
       case 3:
       case 4:
       case 5:
-        weatherClasses.add('focus');
+        weatherClasses.add('active');
         break;
       case 6:
       case 7:
       case 8:
-        wifiClasses.add('focus');
+        wifiClasses.add('active');
         break;
     }
 
