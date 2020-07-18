@@ -13,7 +13,7 @@
   "author": "Ricky Nelson <rickyn@socketwiz.com>",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
     "npm-check-updates": "^4.0.4",
